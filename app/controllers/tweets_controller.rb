@@ -1,11 +1,13 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def new 
-    @tweet = current_user.new
+    @tweet = current_user.tweets.new
   end
 
   def create
     begin
-      @tweet = current_user.create!(tweet_params)
+      @tweet = current_user.tweets.create!(tweet_params)
       redirect_to @tweet
     rescue
       render :new, status: :unprocessable_entity
