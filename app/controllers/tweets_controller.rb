@@ -4,10 +4,6 @@ class TweetsController < ApplicationController
   def index 
     @tweets = Tweet.all
   end
-  
-  def show 
-    @tweet = Tweet.find(params[:id])
-  end
 
   def new 
     @tweet = current_user.tweets.new
@@ -21,18 +17,15 @@ class TweetsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
-  def edit 
-    @tweet = Tweet.find(params[:id])
-  end
-
-  def update
+  
+  def destroy
     @tweet = Tweet.find(params[:id])
     
-    if @tweet.update(tweet_params)
+    begin
+      @tweet.destroy
       redirect_to root_path
-    else
-      render :edit, status: :unprocessable_entity
+    rescue
+      render :index, status: :unprocessable_entity
     end
   end
 
