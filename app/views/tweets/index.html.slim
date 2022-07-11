@@ -2,9 +2,4 @@ h1 Tweets
 
 = turbo_frame_tag 'new_tweet', src: new_tweet_path, target: '_top'
 
-- @tweets.each do |tweet|
-  div
-    = raw tweet.content
-    p User: #{tweet.user.email}
-    = link_to 'View tweet', tweet
-    = link_to 'Edit tweet', edit_tweet_path(tweet)
+= render @tweets
