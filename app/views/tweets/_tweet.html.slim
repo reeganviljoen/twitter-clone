@@ -1,3 +1,7 @@
 = raw tweet.content
 p User: #{tweet.user.email}
 = link_to 'Delete', tweet_path(tweet), data: { turbo_method: :delete, turbo_confirm: 'Are you sure ?'} 
+- if Like.where(user_id: current_user.id).where(tweet_id: tweet.id).blank?
+  = turbo_frame_tag 'like_tweet', src: new_tweet_like_path(tweet)
+-else 
+  = link_to 'Unlike', tweet_like_path(tweet), data: {turbo_method: :delete}
