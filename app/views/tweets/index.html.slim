@@ -4,6 +4,8 @@ ul
 - @tweets.each do |tweet|
   li 
     = raw tweet.content
-    = tweet.user.email
+    p User: #{tweet.user.email}
+    = link_to 'View tweet', tweet
+    = link_to 'Edit tweet', edit_tweet_path(tweet)
 
 = link_to 'Add a new tweet', new_tweet_path
