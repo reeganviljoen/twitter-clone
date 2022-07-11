@@ -1,3 +1,3 @@
 h1 New tweet 
-
-= render 'form', tweet: @tweet
+= turbo_frame_tag 'new_tweet', target: :_top
+  = render 'form', tweet: @tweet
