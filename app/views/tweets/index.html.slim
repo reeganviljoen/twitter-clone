@@ -1,0 +1,9 @@
+h1 Tweets 
+
+ul
+- @tweets.each do |tweet|
+  li 
+    = raw tweet.content
+    = tweet.user.email
+
+= link_to 'Add a new tweet', new_tweet_path
