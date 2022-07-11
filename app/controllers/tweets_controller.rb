@@ -16,7 +16,7 @@ class TweetsController < ApplicationController
   def create
     begin
       @tweet = current_user.tweets.create!(tweet_params)
-      redirect_to @tweet
+      redirect_to root_path
     rescue
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class TweetsController < ApplicationController
     @tweet = Tweet.find(params[:id])
     
     if @tweet.update(tweet_params)
-      redirect_to @tweet
+      redirect_to root_path
     else
       render :edit, status: :unprocessable_entity
     end
