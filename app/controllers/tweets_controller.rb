@@ -22,6 +22,20 @@ class TweetsController < ApplicationController
     end
   end
 
+  def edit 
+    @tweet = Tweet.find(params[:id])
+  end
+
+  def update
+    @tweet = Tweet.find(params[:id])
+    
+    if @tweet.update(tweet_params) do
+      redirect_to @tweet
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
   def tweet_params
     params.require(:tweet).permit(:content)
