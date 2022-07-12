@@ -6,15 +6,16 @@ class LikesController < ApplicationController
   def create
     begin
       @like = current_user.likes.create!(like_params)
+      redirect_to root_path
     rescue
       render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @like = Like.find(params[:id])
+    @like = current_user.likes.find(params[:id])
     @like.destroy
-    redirect_to root_path
+    redirect_to root_path, status: :see_other
   end
 
   private
