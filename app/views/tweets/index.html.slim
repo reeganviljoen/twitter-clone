@@ -1,5 +1,4 @@
 h1 Tweets 
 
 = turbo_frame_tag 'new_tweet', src: new_tweet_path, target: :_top
-
-= render @tweets
+= render @tweets.reverse

@@ -1,5 +1,6 @@
 = turbo_frame_tag 'like_tweet'
-  = form_with model:[@like.tweet, @like], remote: true do |form|
+  = form_with model:[@like.tweet, @like] do |form|
     = form.hidden_field :tweet_id, value: @like.tweet.id
     div 
       = form.submit 'Like'
+    
