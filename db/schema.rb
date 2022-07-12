@@ -63,8 +63,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_114254) do
 
   create_table "tweets", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "tweet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tweet_id"], name: "index_tweets_on_tweet_id"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 
@@ -84,5 +86,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_114254) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
+  add_foreign_key "tweets", "tweets"
   add_foreign_key "tweets", "users"
 end
