@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+
+ body {
+  background-color: #dedede;
+ }
+
+ .tweet, .new-tweet {
+  background-color: #ffff;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+ }
+
+ .comment {
+  margin-right: 0.5rem;
+  margin-left: 1rem;
+  background-color: #dedede;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+
+ }
