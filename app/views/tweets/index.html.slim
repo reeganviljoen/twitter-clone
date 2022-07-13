@@ -1,4 +1,4 @@
-h1 Tweets 
-
 = turbo_frame_tag 'new_tweet', src: new_tweet_path, target: :_top
-= render @tweets.reverse
+- @tweets.reverse.each do |tweet|
+  = turbo_frame_tag "tweet_#{tweet.id}", src: tweet_path(tweet)
+  
