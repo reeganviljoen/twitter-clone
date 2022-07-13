@@ -1,0 +1,6 @@
+= turbo_frame_tag 'comment' 
+  h1 comment 
+  = raw comment.content
+  p User: #{comment.user.email}
+  = link_to 'Delete', tweet_comment_path(comment.tweet, comment), data: { turbo_method: :delete} 
+  p likes: #{comment.likes.count}
