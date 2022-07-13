@@ -1,7 +1,7 @@
-= turbo_frame_tag 'new_comment', target: :_top
-  = form_with model: @comment, url: tweet_comments_path(@comment.tweet) do |form|
+= turbo_frame_tag 'new_comment'
+  = form_with url: tweet_comments_path(@comment.tweet) do |form|
     div 
-      = form.label :comment
+      = form.label :content
       = form.rich_text_area :content
     div 
-      = form.submit
+      = form.submit 'Comment'
