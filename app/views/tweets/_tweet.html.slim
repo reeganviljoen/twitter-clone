@@ -7,3 +7,5 @@
   - else
    = turbo_frame_tag 'like_tweet', src: new_tweet_like_path(tweet), target: :tweet 
   p likes: #{tweet.likes.count}
+  = turbo_frame_tag 'new_comment', src: new_tweet_comment_path(tweet), target: :tweet
+  = render tweet.comments
