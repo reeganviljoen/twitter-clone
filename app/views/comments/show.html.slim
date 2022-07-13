@@ -1,0 +1,12 @@
+
+= turbo_frame_tag "comment_#{@comment.id}"
+  div class='comment'
+    h1 comment 
+    = raw @comment.content
+    p User: #{@comment.user.email}
+    = link_to 'Delete', tweet_comment_path(@comment.tweet, @comment), data: { turbo_method: :delete}
+    - if already_liked?(@comment)
+      = link_to 'Unlike', tweet_like_path(@comment, @comment.likes.find_by(tweet_id: @comment.id), comment: true), data: {turbo_method: :delete}
+    - else
+      = turbo_frame_tag "like_tweet_#{@comment.id}", src: new_tweet_like_path(@comment, comment: true), target: "comment_#{@comment.id}" 
+    p likes: #{@comment.likes.count}
