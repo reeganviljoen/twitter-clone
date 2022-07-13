@@ -6,7 +6,11 @@ class LikesController < ApplicationController
   def create
     begin
       @like = current_user.likes.create!(like_params)
-      redirect_to root_path
+      if params[:like][:comment] == 'true'
+        redirect_to tweet_comment_path(@like.tweet.tweet, @like.tweet)
+      else
+        redirect_to tweet_path(@like.tweet)
+      end
     rescue
       render :new, status: :unprocessable_entity
     end
@@ -14,8 +18,12 @@ class LikesController < ApplicationController
 
   def destroy
     @like = current_user.likes.find(params[:id])
+    if params[:comment] == 'true'
+      redirect_to tweet_comment_path(@like.tweet.tweet, @like.tweet), status: :see_other
+    else
+      redirect_to tweet_path(@like.tweet), status: :see_other
+    end
     @like.destroy
-    redirect_to root_path, status: :see_other
   end
 
   private
