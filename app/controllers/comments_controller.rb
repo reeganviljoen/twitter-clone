@@ -1,5 +1,15 @@
 class CommentsController < ApplicationController
 
+  def index
+    @tweet = Tweet.find(params[:tweet_id])
+    @comments = @tweet.comments.all
+  end
+
+  def show 
+    tweet = Tweet.find(params[:tweet_id])
+    @comment = tweet.comments.find(params[:id])
+  end
+  
   def new
     @tweet = Tweet.find(params[:tweet_id])
     @comment = @tweet.comments.new()
@@ -7,7 +17,12 @@ class CommentsController < ApplicationController
 
   def create 
     tweet = Tweet.find(params[:tweet_id])
-    binding.pry
-    @comment = tweet.comments.create!(user_id: current_user.id)
+    @comment = tweet.comments.create!(comment_params)
+  end
+
+  private
+  def comment_params
+    params[:user_id] = current_user.id
+    params.permit(:user_id, :content)
   end
 end
