@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
-
+  before_action :set_tweet, only: [:index, :new]
+  
   def index
-    @tweet = Tweet.find(params[:tweet_id])
     @comments = @tweet.comments.descending_tweets
   end
 
@@ -10,7 +10,6 @@ class CommentsController < ApplicationController
   end
   
   def new
-    @tweet = Tweet.find(params[:tweet_id])
     @comment = @tweet.comments.new()
   end
 
@@ -24,6 +23,16 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = Tweet.find(params[:id])
+    begin
+      @comment.destroy
+      redirect_to tweet_path(@comment.tweet)
+    rescue
+      render :index, status: :unprocessable_entity
+    end
+  end
+
   private
   def comment_params
     permitted_params = params.permit(:content)
@@ -31,5 +40,9 @@ class CommentsController < ApplicationController
     permitted_params.merge!(
       user_id: current_user.id
     )
+  end
+
+  def set_tweet
+    @tweet = Tweet.find(params[:tweet_id]) 
   end
 end
