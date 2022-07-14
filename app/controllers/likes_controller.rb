@@ -1,7 +1,11 @@
 class LikesController < ApplicationController
   def new
-    @like = current_user.likes.new(tweet_id: params[:tweet_id])
-    @tweet = @like.tweet
+    @tweet = Tweet.find(params[:tweet_id])
+    if @tweet.likes.find_by(tweet_id: @tweet.id).present?
+      @like = @tweet.likes.find_by(tweet_id: @tweet.id)
+    else
+      @like = current_user.likes.new(tweet_id: params[:tweet_id])
+    end
   end
 
   def create
