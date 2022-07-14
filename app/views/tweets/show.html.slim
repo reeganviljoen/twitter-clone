@@ -1,4 +1,4 @@
-= turbo_frame_tag "tweet_#{@tweet.id}" 
+= turbo_frame_tag "tweet_#{@tweet.id}"
   div class='tweet'
     = raw @tweet.content
     p User: #{@tweet.user.email}
@@ -8,7 +8,7 @@
 
 
   
-    = turbo_frame_tag 'new_comment', src: new_tweet_comment_path(@tweet)
+    = turbo_frame_tag 'new_comment', src: new_tweet_comment_path(@tweet), target: "tweet_#{@tweet.id}"
     - if @tweet.comments.present?
       h2 Comments
       div class='comments'
