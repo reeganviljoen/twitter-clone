@@ -2,12 +2,11 @@ class CommentsController < ApplicationController
 
   def index
     @tweet = Tweet.find(params[:tweet_id])
-    @comments = @tweet.comments.all
+    @comments = @tweet.comments.order(created_at: :desc)
   end
 
   def show 
-    tweet = Tweet.find(params[:tweet_id])
-    @comment = tweet.comments.find(params[:id])
+    @comment = Tweet.find(params[:id])
   end
   
   def new
@@ -17,12 +16,20 @@ class CommentsController < ApplicationController
 
   def create 
     tweet = Tweet.find(params[:tweet_id])
-    @comment = tweet.comments.create!(comment_params)
+    @comment = tweet.comments.new(comment_params)
+    if @comment.save
+      redirect_to tweet_path(tweet)
+    else 
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
   def comment_params
-    params[:user_id] = current_user.id
-    params.permit(:user_id, :content)
+    permitted_params = params.permit(:content)
+    
+    permitted_params.merge!(
+      user_id: current_user.id
+    )
   end
 end
