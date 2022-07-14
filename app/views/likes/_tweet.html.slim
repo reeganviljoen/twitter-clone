@@ -1,0 +1,10 @@
+= turbo_frame_tag "like_tweet_#{@tweet.id}"
+  - if @tweet.liked?(current_user)
+      = link_to 'Unlike', tweet_like_path(@tweet, @tweet.likes.find_by(tweet_id: @tweet.id), comment: false), data: {turbo_method: :delete}
+  -else 
+    = form_with model:[@tweet, @like] do |form|
+      = form.hidden_field :comment, value: false
+      = form.hidden_field :tweet_id, value: @like.tweet.id
+      div 
+        = form.submit 'Like'
+  = render 'likes', likes: @tweet.likes
