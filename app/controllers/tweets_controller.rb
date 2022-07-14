@@ -14,17 +14,16 @@ class TweetsController < ApplicationController
   end
 
   def create
-    begin
-      @tweet = current_user.tweets.create!(tweet_params)
+    @tweet = current_user.tweets.new(tweet_params)
+    if @tweet.save
       redirect_to root_path
-    rescue
+    else
       render :new, status: :unprocessable_entity
     end
   end
   
   def destroy
     @tweet = Tweet.find(params[:id])
-    
     begin
       @tweet.destroy
       redirect_to root_path
