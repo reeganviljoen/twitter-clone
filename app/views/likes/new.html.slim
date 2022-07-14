@@ -1,7 +1,25 @@
-= turbo_frame_tag "like_tweet_#{@like.tweet.id}"
-  = form_with model:[@like.tweet, @like] do |form|
-    = form.hidden_field :comment, value: params[:comment]
-    = form.hidden_field :tweet_id, value: @like.tweet.id
-    div 
-      = form.submit 'Like'
-    
+- if params[:comment] == 'true' 
+  = turbo_frame_tag "like_comment_#{@tweet.id}"
+    - if already_liked?(@tweet)
+        = link_to 'Unlike', tweet_like_path(@tweet, @tweet.likes.find_by(tweet_id: @tweet.id), comment: true), data: {turbo_method: :delete}
+    -else 
+      = form_with model:[@tweet, @like] do |form|
+        = form.hidden_field :comment, value: true
+        = form.hidden_field :tweet_id, value: @like.tweet.id
+        div 
+          = form.submit 'Like'
+
+    p likes: #{@tweet.likes.count}
+-else
+  = turbo_frame_tag "like_tweet_#{@tweet.id}"
+    - if already_liked?(@tweet)
+        = link_to 'Unlike', tweet_like_path(@tweet, @tweet.likes.find_by(tweet_id: @tweet.id), comment: false), data: {turbo_method: :delete}
+    -else 
+      = form_with model:[@tweet, @like] do |form|
+        = form.hidden_field :comment, value: false
+        = form.hidden_field :tweet_id, value: @like.tweet.id
+        div 
+          = form.submit 'Like'
+
+    p likes: #{@tweet.likes.count}
+      
