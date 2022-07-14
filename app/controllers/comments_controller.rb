@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
 
   def index
     @tweet = Tweet.find(params[:tweet_id])
-    @comments = @tweet.comments.order(created_at: :desc)
+    @comments = @tweet.comments.descending_tweets
   end
 
   def show 
