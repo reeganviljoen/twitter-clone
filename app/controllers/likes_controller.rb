@@ -8,8 +8,7 @@ class LikesController < ApplicationController
   def create
     begin
       @like = current_user.likes.create!(like_params)
-      
-      redirect_to new_tweet_like_path(@like.tweet, comment: params[:like][:comment] == 'true'), status: :see_other
+      redirect_to new_tweet_like_path(@like.tweet, comment: params[:comment] == 'true'), status: :see_other
     rescue
       render :new, status: :unprocessable_entity
     end
@@ -27,6 +26,6 @@ class LikesController < ApplicationController
 
   private
   def like_params
-    params.require(:like).permit(:tweet_id)
+    params.permit(:tweet_id)
   end
 end
