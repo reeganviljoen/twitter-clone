@@ -45,6 +45,14 @@
   width: 24px;
  }
 
+ .icon__set {
+  display: flex;
+ }
+
+ .tweet__icons {
+  display: flex;
+  justify-content: space-around;
+ }
  .modal {
     position: fixed;
     top: 0;
