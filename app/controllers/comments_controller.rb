@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   end
 
   def show 
-    @comment = Tweet.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
   
   def new
