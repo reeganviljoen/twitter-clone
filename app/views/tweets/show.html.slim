@@ -1,14 +1,20 @@
 = turbo_frame_tag "tweet_#{@tweet.id}"
   div class='tweet'
-    = raw @tweet.content
+    div class='tweet__body'
+      = raw @tweet.content
     p User: #{@tweet.user.email}
     = link_to 'Delete', tweet_path(@tweet), data: { turbo_method: :delete} 
     br
 
     div class='tweet__icons'
       = turbo_frame_tag "like_tweet_#{@tweet.id}", src: new_tweet_like_path(@tweet, type:'tweet')
-      dic class='icon__set'
-        = link_to new_tweet_comment_path(@tweet), data: {turbo_frame: :new_comment} do 
+      div class='icon__set'
+        = link_to new_tweet_retweet_path(@tweet), data:{turbo_frame: :modal} do 
+          = image_tag 'retweet.svg', class:'icon'
+        = @tweet.retweets.count
+
+      div class='icon__set'
+        = link_to new_tweet_comment_path(@tweet), data: {turbo_frame: :modal} do 
           = image_tag 'comment.svg', class:'icon'
         = @tweet.comments.count
     - if @tweet.comments.present?
