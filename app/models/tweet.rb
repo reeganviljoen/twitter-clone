@@ -5,7 +5,7 @@ class Tweet < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   has_many :comments, dependent: :destroy
-  
+  has_many :retweets, dependent: :destroy
 
   scope :descending_tweets, -> { order(created_at: :desc) }
 
