@@ -1,7 +1,17 @@
 = turbo_frame_tag 'new_comment'
-  = form_with url: tweet_comments_path(@comment.tweet) do |form|
-    div 
-      = form.label :content
-      = form.rich_text_area :content
-    div 
-      = form.submit 'Comment'
+
+  div class='modal'
+  
+    div class='modal__inner'
+    
+
+      = form_with url: tweet_comments_path(@comment.tweet), data:{turbo_frame: :content, controller: 'modal', \
+                                                action: 'turbo:submit-end->modal#close'} do |form|
+        
+        button type="button" data-action="click->modal#close"
+          = image_tag 'close.svg', class:'icon'
+        div 
+          = form.label :content
+          = form.rich_text_area :content
+        div 
+          = form.submit 'Comment'

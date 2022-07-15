@@ -6,8 +6,10 @@
     br
     = turbo_frame_tag "like_tweet_#{@tweet.id}", src: new_tweet_like_path(@tweet, type:'tweet')
 
-    = turbo_frame_tag 'new_comment', src: new_tweet_comment_path(@tweet), target: "tweet_#{@tweet.id}"
+    / = turbo_frame_tag 'new_comment', src: new_tweet_comment_path(@tweet), target: "tweet_#{@tweet.id}"
     
+    = link_to new_tweet_comment_path(@tweet), data: {turbo_frame: :new_comment} do 
+      = image_tag 'comment.svg', class:'icon'
     - if @tweet.comments.present?
       div class='comments'
         = turbo_frame_tag "tweet_#{@tweet.id}_comments", src: tweet_comments_path(@tweet)
