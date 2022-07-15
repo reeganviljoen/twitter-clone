@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     begin
       @comment.destroy
-      redirect_to tweet_path(@comment.tweet)
+      redirect_to tweet_path(@comment.tweet), status: :see_other
     rescue
       render :index, status: :unprocessable_entity
     end
