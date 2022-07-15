@@ -1,5 +1,4 @@
-- if params[:comment] == 'true' 
-  = render 'comment', {tweet: @tweet, like: @like, current_user: current_user}
--else
-  = render = render 'tweet', {tweet: @tweet, like: @like, current_user: current_user}
+
+= render params[:type], {tweet: @tweet, like: @like, current_user: current_user}
+
   

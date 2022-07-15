@@ -4,7 +4,7 @@
     p User: #{@tweet.user.email}
     = link_to 'Delete', tweet_path(@tweet), data: { turbo_method: :delete} 
     br
-    = turbo_frame_tag "like_tweet_#{@tweet.id}", src: new_tweet_like_path(@tweet, comment: false)
+    = turbo_frame_tag "like_tweet_#{@tweet.id}", src: new_tweet_like_path(@tweet, type:'tweet')
 
     = turbo_frame_tag 'new_comment', src: new_tweet_comment_path(@tweet), target: "tweet_#{@tweet.id}"
     

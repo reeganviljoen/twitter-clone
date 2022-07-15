@@ -1,8 +1,8 @@
 = turbo_frame_tag "like_tweet_#{tweet.id}"
   - if @tweet.liked?(current_user)
-      = link_to tweet_like_path(tweet, tweet.likes.find_by(tweet_id: tweet.id), comment: false), data: {turbo_method: :delete} do 
+      = link_to tweet_like_path(tweet, tweet.likes.find_by(tweet_id: tweet.id), type: 'tweet'), data: {turbo_method: :delete} do 
         = image_tag 'unlike.svg', class:'icon'
   -else 
-    = link_to tweet_likes_path(tweet, comment: false), data: {turbo_method: :post} do 
+    = link_to tweet_likes_path(tweet, type: 'tweet'), data: {turbo_method: :post} do 
       = image_tag 'like.svg', class:'icon'
   = render 'likes', likes: tweet.likes
