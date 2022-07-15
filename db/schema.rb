@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_114254) do
   create_table "tweets", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "tweet_id"
+    t.string "type", default: "Tweet", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tweet_id"], name: "index_tweets_on_tweet_id"
