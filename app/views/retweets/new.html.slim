@@ -1,0 +1,16 @@
+= turbo_frame_tag 'modal'
+  div class='modal'
+    div class='modal__inner'
+      = form_with url: tweet_retweets_path(@retweet.tweet), data:{turbo_frame: :content, controller: 'modal', \
+                                                action: 'turbo:submit-end->modal#close'} do |form|
+        div class='modal__header'
+          h3 Retweet
+          button type="button" data-action="click->modal#close"
+            = image_tag 'close.svg', class:'icon'
+        div 
+          = form.label :content
+          = form.rich_text_area :content
+        div 
+          = raw @retweet.tweet.content
+        div 
+          = form.submit 'Retweet'
