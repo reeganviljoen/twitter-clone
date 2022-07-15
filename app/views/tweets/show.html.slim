@@ -6,10 +6,8 @@
     br
     = turbo_frame_tag "like_tweet_#{@tweet.id}", src: new_tweet_like_path(@tweet, comment: false)
 
-
-  
     = turbo_frame_tag 'new_comment', src: new_tweet_comment_path(@tweet), target: "tweet_#{@tweet.id}"
+    
     - if @tweet.comments.present?
-      h2 Comments
       div class='comments'
         = turbo_frame_tag "tweet_#{@tweet.id}_comments", src: tweet_comments_path(@tweet)

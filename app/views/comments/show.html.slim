@@ -1,7 +1,6 @@
 
 = turbo_frame_tag "comment_#{@comment.id}"
-  div class='comment'
-    h1 comment 
+  div class='comment' 
     = raw @comment.content
     p User: #{@comment.user.email}
     = link_to 'Delete', tweet_comment_path(@comment.tweet, @comment), data: { turbo_method: :delete  }
