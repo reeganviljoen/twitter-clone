@@ -46,11 +46,12 @@
   border-radius: 10px;
  }
 
- .tweet__body {
+ .tweet__body, .retweet__body {
   border-style: solid;
   border-width: 1px;
   border-color: rgba(183, 183, 183, 0.598);
   border-radius: 5px;
+  margin-top: 1rem;
  }
 
  .icon {
