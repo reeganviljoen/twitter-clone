@@ -1,7 +1,7 @@
 class RetweetsController < ApplicationController
   
   def show
-    @retweet = Retweet.find(params[:id])
+    @retweet = Tweet.find(params[:id])
   end
   
   def new
@@ -21,7 +21,7 @@ class RetweetsController < ApplicationController
 
   private
   def retweet_params
-    permitted_params = params.permit(:content)
+    permitted_params = params.permit(:content, :tweet_type)
     
     permitted_params.merge!(
       user_id: current_user.id

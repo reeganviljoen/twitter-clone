@@ -6,4 +6,4 @@
     -else 
       = link_to tweet_likes_path(tweet, type: 'tweet'), data: {turbo_method: :post} do 
         = image_tag 'like.svg', class:'icon'
-    = render 'likes', likes: tweet.likes
+    = render 'likes', {likes: tweet.likes, tweet_type: tweet.tweet_type}

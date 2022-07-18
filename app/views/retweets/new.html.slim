@@ -7,6 +7,8 @@
           h3 Retweet
           button type="button" data-action="click->modal#close"
             = image_tag 'close.svg', class:'icon'
+
+        = form.hidden_field :tweet_type , value: 'retweet'
         div 
           = form.label :content
           = form.rich_text_area :content

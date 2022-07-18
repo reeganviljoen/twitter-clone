@@ -4,9 +4,9 @@
 = turbo_frame_tag 'new_tweet', src: new_tweet_path, target: :_top
 = turbo_frame_tag 'tweets'
   - @tweets.each do |tweet|
-    -if tweet.type == 'Tweet'
+    -if tweet.tweet_type == 'tweet'
       = turbo_frame_tag "tweet_#{tweet.id}", src: tweet_path(tweet)
-    -elsif tweet.type == 'Retweet'
+    -elsif tweet.tweet_type == 'retweet'
       = turbo_frame_tag "retweet_#{tweet.id}", src: tweet_retweet_path(tweet.tweet, tweet)
   
   

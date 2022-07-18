@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   end
 
   def show 
-    @comment = Comment.find(params[:id])
+    @comment = Tweet.find(params[:id])
   end
   
   def new
@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = Tweet.find(params[:id])
     begin
       @comment.destroy
       redirect_to tweet_path(@comment.tweet), status: :see_other
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
 
   private
   def comment_params
-    permitted_params = params.permit(:content)
+    permitted_params = params.permit(:content, :tweet_type)
     
     permitted_params.merge!(
       user_id: current_user.id
