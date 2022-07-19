@@ -1,9 +1,0 @@
-
-
-div class='comment' id={}
-  div class='tweet__body'
-    = raw @comment.content
-  p User: #{@comment.user.email}
-  = link_to 'Delete', tweet_comment_path(@comment.tweet, @comment), data: { turbo_method: :delete  }
-  br
-  = turbo_frame_tag "like_comment_#{@comment.id}", src: new_tweet_like_path(@comment, type: 'comment')
