@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     resources :retweets, only: [:new, :create]
   end
 
+  resources :users, only: :show
+
   root "tweets#index"
 end
