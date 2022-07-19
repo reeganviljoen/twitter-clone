@@ -1,9 +1,5 @@
 class RetweetsController < ApplicationController
   
-  def show
-    @retweet = Tweet.find(params[:id])
-  end
-  
   def new
     @tweet = Tweet.find(params[:tweet_id])
     @retweet = @tweet.retweets.new()

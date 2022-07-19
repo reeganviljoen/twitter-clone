@@ -4,11 +4,7 @@ class CommentsController < ApplicationController
   def index
     @comments = @tweet.comments.descending_tweets
   end
-
-  def show 
-    @comment = Tweet.find(params[:id])
-  end
-  
+   
   def new
     @comment = @tweet.comments.new()
   end
