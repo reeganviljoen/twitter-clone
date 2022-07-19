@@ -18,9 +18,7 @@ div id = "#{dom_id tweet}"
           = link_to new_tweet_comment_path(tweet), data: {turbo_frame: :modal} do 
             = image_tag 'comment.svg', class:'icon'
           = tweet.comments.count
-      - if tweet.comments.present?
-        div class='comments'
-          / = turbo_frame_tag "tweet_#{tweet.id}_comments", src: tweet_comments_path(tweet)
-          = render tweet.comments
+      - if tweet.comments.present? && current_page?(root_path)
+        = link_to 'comments', tweet_comments_path(tweet), data: {turbo_action: :advance}
   - else 
     = render 'retweets/retweet' , retweet: tweet
