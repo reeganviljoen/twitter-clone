@@ -1,3 +1,5 @@
-= turbo_frame_tag "tweet_#{@tweet.id}_comments"
-  - @comments.each do |comment|
-    = turbo_frame_tag "comment_#{comment.id}", src: tweet_comment_path(@tweet, comment)
+= turbo_frame_tag 'content'
+  = render @tweet
+  = turbo_stream_from 'tweets'
+  div id='tweets'
+    = render @comments
