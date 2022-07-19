@@ -14,7 +14,7 @@ class Tweet < ApplicationRecord
   belongs_to :tweet, class_name: 'Tweet', optional:  true
 
   after_create_commit lambda {
-    broadcast_prepend_to 'tweets', target:'tweets'
+    broadcast_prepend_later_to 'tweets', target:'tweets'
   }
   
   after_destroy_commit lambda {
