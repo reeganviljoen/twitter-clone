@@ -1,7 +1,7 @@
-= turbo_frame_tag 'content'
+= turbo_frame_tag 'page_content'
   - if user_signed_in?
     = link_to "Sign Out", destroy_user_session_path, data:{turbo_method: :delete}
-  = turbo_frame_tag 'new_tweet', src: new_tweet_path, target: :_top
+  = turbo_frame_tag 'new_tweet', src: new_tweet_path
   = turbo_stream_from 'tweets'
   div id='tweets'
     = render @tweets
