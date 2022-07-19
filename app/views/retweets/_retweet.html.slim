@@ -1,9 +1,13 @@
 
 div class='tweet' 
+  
+
   div class='tweet__body'
+    = link_to retweet.user.email, user_path(retweet.user), data: {turbo_frame: :content, turbo_action: :advance}
     = raw retweet.content
 
   div class='retweet__body'
+    = link_to retweet.tweet.user.email, user_path(retweet.tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
     = raw retweet.tweet.content
 
   p User: #{retweet.user.email}
