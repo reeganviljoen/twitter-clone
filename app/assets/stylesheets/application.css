@@ -62,20 +62,6 @@ main {
   border-color: rgba(183, 183, 183, 0.598);
  }
 
- .comment {
-  margin-right: 0.5rem;
-  margin-left: 1rem;
-  margin-bottom: 1rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  padding-right: 0.25rem;
-  padding-left: 0.25rem;
-  border-style: solid;
-  border-width: 2px;
-  border-color: rgba(183, 183, 183, 0.598);
-  border-radius: 10px;
- }
-
  .tweet__body, .retweet__body {
   border-style: solid;
   border-width: 1px;
