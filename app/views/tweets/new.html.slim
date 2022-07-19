@@ -1,7 +1,8 @@
 = turbo_frame_tag 'new_tweet'
   div class='new-tweet'
     h2 Home
-    = form_with model: @tweet do |form|
+    = form_with model: @tweet, data: {controller: 'reset-form', \
+                                      action: 'turbo:submit-end->reset-form#reset'} do |form|
       = form.hidden_field :tweet_type , value: 'tweet'
       div 
         = form.rich_text_area :content
