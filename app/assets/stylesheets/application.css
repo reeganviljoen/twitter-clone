@@ -51,7 +51,7 @@ main {
    width: 100%
  }
 
- .tweet, .new-tweet {
+ .tweet, .new-tweet, .sign-up, .sign-in {
   flex: 1 1 auto;
   background-color: #ffff;
   margin-right: 0.5rem;
