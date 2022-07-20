@@ -9,7 +9,7 @@ html
   body
     
     main
-      - if defined?(current_user)
+      - if !current_user.blank?
         div class='navigation'
           = link_to root_path, {turbo_frame: :content, turbo_action: :advance} do 
             = image_tag 'home.svg', class:'icon'
