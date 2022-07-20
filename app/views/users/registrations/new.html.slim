@@ -5,13 +5,16 @@ div class='sign-up'
     = render "devise/shared/error_messages", resource: resource
     = form.fields_for :profile do |profile_form|
       div 
-        =profile_form.text_field :first_name, placeholder: 'first name'
+        = profile_form.text_field :first_name, placeholder: 'first name'
 
       div 
-        =profile_form.text_field :last_name, placeholder: 'last name'
+        = profile_form.text_field :last_name, placeholder: 'last name'
       
       div 
-        =profile_form.text_field :phone, placeholder: 'phone number'
+        = profile_form.text_field :phone, placeholder: 'phone number'
+      div 
+        = profile_form.label :avatar
+        = profile_form.file_field :avatar, accept: 'image/png, image/gif, imeage/jpeg'
 
     div 
       = form.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'email'

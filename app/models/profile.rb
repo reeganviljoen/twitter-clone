@@ -6,4 +6,5 @@ class Profile < ApplicationRecord
   validates :phone,      presence: true
   validates :description, length: { maximum: 300 }
   
+  has_one_attached :avatar
 end
