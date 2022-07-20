@@ -4,5 +4,8 @@
     h1 #{@user.profile.first_name} #{@user.profile.last_name}
     h2 #{@user.email}
     p #{@user.profile.phone}
+
+  div class='tweets'
+    = render @tweets
     
     
