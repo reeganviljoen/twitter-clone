@@ -7,9 +7,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
- 
   protected
-  
+
   def sign_up_params
     devise_parameter_sanitizer.sanitize(:sign_up) { |user| user.permit(permitted_attributes) }
   end
@@ -25,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :password_confirmation,
       :remember_me,
       :role,
-      profile_attributes: %i[first_name last_name phone description]
+      profile_attributes: %i[first_name last_name phone description avatar]
     ]
   end
 end

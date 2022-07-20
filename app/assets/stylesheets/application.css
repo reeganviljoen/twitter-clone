@@ -121,7 +121,12 @@ main {
   display: flex;
   justify-content:space-between;
  }
- 
+ .avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 9999px;
+}
  button {
   height: 3rem;
  }

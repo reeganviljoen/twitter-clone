@@ -1,4 +1,8 @@
 =turbo_frame_tag 'page-content'
   div class='user-header'
-    h1 #{@user.email}
+    = image_tag @user.profile.avatar, class:'avatar'
+    h1 #{@user.profile.first_name} #{@user.profile.last_name}
+    h2 #{@user.email}
+    p #{@user.profile.phone}
+    
     
