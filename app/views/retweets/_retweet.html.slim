@@ -1,30 +1,27 @@
 
-div class='tweet' 
-  
+div class='tweet__body'
+  = link_to retweet.user.email, user_path(retweet.user), data: {turbo_frame: :content, turbo_action: :advance}
+  = raw retweet.content
 
-  div class='tweet__body'
-    = link_to retweet.user.email, user_path(retweet.user), data: {turbo_frame: :content, turbo_action: :advance}
-    = raw retweet.content
+div class='retweet__body'
+  = link_to retweet.tweet.user.email, user_path(retweet.tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
+  = raw retweet.tweet.content
 
-  div class='retweet__body'
-    = link_to retweet.tweet.user.email, user_path(retweet.tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
-    = raw retweet.tweet.content
+p User: #{retweet.user.email}
+= link_to 'Delete', tweet_path(retweet), data: { turbo_method: :delete} 
+br
 
-  p User: #{retweet.user.email}
-  = link_to 'Delete', tweet_path(retweet), data: { turbo_method: :delete} 
-  br
+div class='tweet__icons'
+  = turbo_frame_tag "like_tweet_#{retweet.id}", src: new_tweet_like_path(retweet, type:'tweet')
+  div class='icon__set'
+    = link_to new_tweet_retweet_path(retweet), data:{turbo_frame: :modal} do 
+      = image_tag 'retweet.svg', class:'icon'
+    = retweet.retweets.count
 
-  div class='tweet__icons'
-    = turbo_frame_tag "like_tweet_#{retweet.id}", src: new_tweet_like_path(retweet, type:'tweet')
-    div class='icon__set'
-      = link_to new_tweet_retweet_path(retweet), data:{turbo_frame: :modal} do 
-        = image_tag 'retweet.svg', class:'icon'
-      = retweet.retweets.count
-
-    div class='icon__set'
-      = link_to new_tweet_comment_path(retweet), data: {turbo_frame: :modal} do 
-        = image_tag 'comment.svg', class:'icon'
-      = retweet.comments.count
-  - if retweet.comments.present?
-    div class='comments'
-      = turbo_frame_tag "tweet_#{retweet.id}_comments", src: tweet_comments_path(retweet)
+  div class='icon__set'
+    = link_to new_tweet_comment_path(retweet), data: {turbo_frame: :modal} do 
+      = image_tag 'comment.svg', class:'icon'
+    = retweet.comments.count
+- if retweet.comments.present?
+  div class='comments'
+    = turbo_frame_tag "tweet_#{retweet.id}_comments", src: tweet_comments_path(retweet)
