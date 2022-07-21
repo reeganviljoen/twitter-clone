@@ -1,11 +1,13 @@
 =turbo_frame_tag 'page-content'
   div class='user-header'
+    - if @user.profile.background_image.blank?
+      = image_tag 'background_default.svg', class:'background-header'
     = image_tag @user.profile.avatar, class:'avatar'
     h1 #{@user.profile.first_name} #{@user.profile.last_name}
-    h2 #{@user.email}
-    p #{@user.profile.phone}
-
-  div class='tweets'
+    p #{@user.profile.description}
+    
+  = turbo_stream_from 'tweets'
+  div id='tweets'
     = render @tweets
     
     
