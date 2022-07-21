@@ -1,0 +1,23 @@
+= turbo_frame_tag 'modal'
+  div class='modal'
+    div class='modal__inner'
+      = form_with model: @user, data:{turbo_frame: :content, controller: 'modal', \
+                                                action: 'turbo:submit-end->modal#close'} do |form|
+        
+        button type="button" data-action="click->modal#close"
+          = image_tag 'close.svg', class:'icon'
+
+        = form.fields_for :profile do |profile_form|
+          div
+            = profile_form.file_field :background_image
+          div
+            = profile_form.file_field :avatar
+          div
+            = profile_form.text_field :first_name, placeholder: 'First name'
+          div 
+            = profile_form.text_field :last_name, placeholder: 'Last name'
+          div 
+            = profile_form.text_area :description, placeholder: 'Bio'
+          
+        div 
+          = form.submit 'Upadte profile'

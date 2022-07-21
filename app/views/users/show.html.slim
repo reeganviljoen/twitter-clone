@@ -5,7 +5,7 @@
     = image_tag @user.profile.avatar, class:'avatar'
     h1 #{@user.profile.first_name} #{@user.profile.last_name}
     p #{@user.profile.description}
-    
+    = link_to 'edit profile', edit_user_path(@user), data: {turbo_frame: :modal}
   = turbo_stream_from 'tweets'
   div id='tweets'
     = render @tweets
