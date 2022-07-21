@@ -14,7 +14,7 @@ div class='sign-up'
         = profile_form.text_field :phone, placeholder: 'phone number'
       div 
         = profile_form.label :avatar
-        = profile_form.file_field :avatar, accept: 'image/png, image/gif, imeage/jpeg'
+        = profile_form.file_field :avatar, accept: 'image/png,image/gif,image/jpeg'
 
     div 
       = form.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'email'

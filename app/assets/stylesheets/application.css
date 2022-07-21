@@ -128,6 +128,7 @@ main {
   margin-left: 1.5rem;
   object-fit: cover;
   border-radius: 9999px;
+  background-color: #dedede;
 }
 
  .background-header {
