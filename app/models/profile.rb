@@ -7,4 +7,5 @@ class Profile < ApplicationRecord
   validates :description, length: { maximum: 300 }
   
   has_one_attached :avatar
+  has_one_attached :background_image
 end
