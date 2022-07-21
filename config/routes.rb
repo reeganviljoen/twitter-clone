@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-  resources :users, only: :show
+  resources :users, only: %i[show edit update]
   resources :tweets , except: [:edit, :update, :show] do
     resources :likes, only: [:new, :create, :destroy]
     resources :comments, except: [:edit, :update, :show]
