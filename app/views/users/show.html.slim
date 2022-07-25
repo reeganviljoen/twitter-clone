@@ -17,8 +17,7 @@
       -if !current_user.following(@user.id)
         = link_to 'Follow', user_follows_path(@user), data: {turbo_method: :post}
       -else
-        / = link_to 'Unfollow', user_follow_path(@user, @follow), data: {turbo_method: :delete}
-        p unfollow
+        = link_to 'Unfollow', user_follow_path(@user, 0), data: {turbo_method: :delete}
 
   = turbo_stream_from 'tweets'
   div id='tweets'
