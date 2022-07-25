@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_25_132638) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_25_143728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,17 +79,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_132638) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "tagings", force: :cascade do |t|
+    t.bigint "tags_id"
+    t.bigint "tweets_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tags_id"], name: "index_tagings_on_tags_id"
+    t.index ["tweets_id"], name: "index_tagings_on_tweets_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "tags_tweets", id: false, force: :cascade do |t|
-    t.bigint "tags_id"
-    t.bigint "tweets_id"
-    t.index ["tags_id"], name: "index_tags_tweets_on_tags_id"
-    t.index ["tweets_id"], name: "index_tags_tweets_on_tweets_id"
   end
 
   create_table "tweets", force: :cascade do |t|
