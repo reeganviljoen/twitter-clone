@@ -13,9 +13,9 @@ class Tweet < ApplicationRecord
 
   belongs_to :tweet, class_name: 'Tweet', optional:  true
 
-  has_many :tagings
-  has_many :tags, through: :tagings
-  # has_and_belongs_to_many :tags
+  has_many :taggings
+  has_many :tags, through: :taggings
+
 
   after_create_commit lambda {
     broadcast_prepend_later_to 'tweets', target:'tweets'

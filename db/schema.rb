@@ -79,13 +79,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_143728) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "tagings", force: :cascade do |t|
-    t.bigint "tags_id"
-    t.bigint "tweets_id"
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "tag_id", null: false
+    t.bigint "tweet_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tags_id"], name: "index_tagings_on_tags_id"
-    t.index ["tweets_id"], name: "index_tagings_on_tweets_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["tweet_id"], name: "index_taggings_on_tweet_id"
+    t.index ["user_id"], name: "index_taggings_on_user_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -123,6 +125,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_143728) do
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "taggings", "tags"
+  add_foreign_key "taggings", "users"
   add_foreign_key "tweets", "tweets"
   add_foreign_key "tweets", "users"
 end
