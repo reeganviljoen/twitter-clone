@@ -16,6 +16,11 @@ class User < ApplicationRecord
     followees.create!(followee_id: followee_id)
   end
 
+  def unfollow(followee_id)
+    followee = followees.find_by(followee_id: followee_id)
+    followee.destroy
+  end
+
   def following(followee_id)
     begin
       followee = followees.find_by(followee_id: followee_id)
