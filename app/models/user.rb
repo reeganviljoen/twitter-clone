@@ -11,4 +11,17 @@ class User < ApplicationRecord
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  def follow(followee_id)
+    followees.create!(followee_id: followee_id)
+  end
+
+  def following(followee_id)
+    begin
+      followee = followees.find_by(followee_id: followee_id)
+      if followee.nil? then raise ActiveRecord::RecordNotFound else return true end
+    rescue ActiveRecord::RecordNotFound
+      return false
+    end
+  end
 end
