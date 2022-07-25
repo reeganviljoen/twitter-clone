@@ -13,6 +13,12 @@
     p #{@user.profile.description}
     - if current_user == @user
       = link_to 'edit profile', edit_user_path(@user), data: {turbo_frame: :modal}
+    - else 
+      -if !current_user.following(@user.id)
+        = link_to 'Follow', user_follows_path(@user), data: {turbo_method: :post}
+      -else
+        = link_to 'Unfollow', user_follow_path(@user, 0), data: {turbo_method: :delete}
+
   = turbo_stream_from 'tweets'
   div id='tweets'
     = render @tweets

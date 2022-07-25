@@ -2,7 +2,8 @@ class TweetsController < ApplicationController
   before_action :authenticate_user!
 
   def index 
-    @tweets = Tweet.descending_tweets
+    followees = current_user.followees.pluck(:followee_id) << current_user.id
+    @tweets = Tweet.followed_tweets(followees).descending_tweets
   end
 
   def new 
