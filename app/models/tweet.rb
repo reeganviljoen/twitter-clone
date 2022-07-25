@@ -23,6 +23,8 @@ class Tweet < ApplicationRecord
 
   scope :descending_tweets, -> { order(created_at: :desc) }
 
+  scope :followed_tweets, -> (followees) {where(user_id: followees)}
+
   has_rich_text :content
   
   def liked?(user)
