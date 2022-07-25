@@ -1,5 +1,6 @@
 class FollowsController < ApplicationController
   def create
-    FollowedsFollower.create!(followed_id: params[:user_id], follower_id: params[:follower_id])
+    current_user.follow(params[:user_id])
+    redirect_to user_path(params[:user_id])
   end
 end
