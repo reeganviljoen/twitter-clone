@@ -18,12 +18,9 @@ class Tweet < ApplicationRecord
 
   accepts_nested_attributes_for :tags
   
-  def tags_attributes=(tags_attributes)
-    tags_attributes.each do |tag_attribute| 
-      tag = Tag.find_or_create_by!(tag_attribute)
-      self.tags << tag
-    end	  
-  end
+  has_rich_text :content
+
+
 
   after_create_commit lambda {
     broadcast_prepend_later_to 'tweets', target:'tweets'
@@ -37,7 +34,14 @@ class Tweet < ApplicationRecord
 
   scope :followed_tweets, -> (followees) {where(user_id: followees)}
 
-  has_rich_text :content
+  scope :tagged_tweets, -> (tags) { joins(taggings: :tag).where(tag: {id: tags})}
+
+  def tags_attributes=(tags_attributes)
+    tags_attributes.each do |tag_attribute| 
+      tag = Tag.find_or_create_by!(tag_attribute)
+      self.tags << tag
+    end	  
+  end
   
   def liked?(user)
     likes.where(user_id: user.id).any?
