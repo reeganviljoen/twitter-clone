@@ -13,7 +13,7 @@ class Tweet < ApplicationRecord
 
   belongs_to :tweet, class_name: 'Tweet', optional:  true
 
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
 
