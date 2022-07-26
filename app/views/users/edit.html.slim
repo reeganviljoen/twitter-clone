@@ -20,6 +20,9 @@
             = profile_form.text_area :phone, placeholder: 'phone number'
           div 
             = profile_form.text_area :description, placeholder: 'Bio'
-          
+        h3 Tags
+        = form.fields_for :tags do |tags_form|
+          div 
+            = tags_form.text_field :body
         div 
           = form.submit 'Update profile'

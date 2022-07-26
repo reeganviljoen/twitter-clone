@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable
 
@@ -18,7 +17,8 @@ class User < ApplicationRecord
   
   def tags_attributes=(tags_attributes)
     tags_attributes.each do |tag_attribute| 
-      tag = self.tags.find_or_create_by(tag_attribute)
+      tag = Tag.find_or_create_by!(tag_attribute)
+      self.tags << tag
     end	  
   end
 
