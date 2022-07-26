@@ -13,6 +13,10 @@
     p #{@user.profile.description}
     - if current_user == @user
       = link_to 'edit profile', edit_user_path(@user), data: {turbo_frame: :modal}
+      h3 class='user__tags' Tags
+      div class='user__tags'
+        - @user.tags.each do |tag|
+          p #{tag.body}
     - else 
       -if !current_user.following(@user.id)
         = link_to 'Follow', user_follows_path(@user), data: {turbo_method: :post}
