@@ -1,20 +1,26 @@
 class User < ApplicationRecord
+
+  devise :database_authenticatable, :registerable,
+  :recoverable, :rememberable, :validatable
+
   has_many :tweets , dependent: :destroy
   has_many :likes, dependent: :destroy
   
   has_many :followers, foreign_key: 'followee_id', class_name: 'Follow'
-
   has_many :followees, foreign_key: 'follower_id', class_name: 'Follow'
 
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
 
   has_many :taggings
-  has_many :tags, through: :taggings
+  has_many :tags, through: :taggings, dependent: :destroy
   accepts_nested_attributes_for :tags
-
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  
+  def tags_attributes=(tags_attributes)
+    tags_attributes.each do |tag_attribute| 
+      tag = self.tags.find_or_create_by(tag_attribute)
+    end	  
+  end
 
   def follow(followee_id)
     followees.create!(followee_id: followee_id)
