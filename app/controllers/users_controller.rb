@@ -6,7 +6,8 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    5.times { @user.tags.build }
+
+    if @user.tags.empty? then 5.times { @user.tags.build } end
   end
 
   def update
