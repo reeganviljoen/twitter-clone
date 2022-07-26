@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     resources :comments, except: %i[edit update show]
     resources :retweets, only: %i[new create]
   end
-  
+ 
+  namespace :explore do
+    resources :tweets, only: :index
+  end
+
   root "tweets#index"
 end
