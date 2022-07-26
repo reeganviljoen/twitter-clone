@@ -8,6 +8,7 @@ class TweetsController < ApplicationController
 
   def new 
     @tweet = current_user.tweets.new
+    5.times { @tweet.tags.build }
   end
 
   def create
@@ -37,6 +38,13 @@ class TweetsController < ApplicationController
 
   private
   def tweet_params
-    params.require(:tweet).permit(:content, :tweet_type)
+    permited_params = params.require(:tweet).permit(:content, :tweet_type)
+    
+    tag_attributes = []
+    params[:tweet][:tags_attributes].each do |key, tag_attribute|
+      tag_attributes << {body: tag_attribute[:body]}
+    end
+
+    permited_params.merge!(tags_attributes: tag_attributes)
   end
 end

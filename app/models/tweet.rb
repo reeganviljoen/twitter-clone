@@ -16,6 +16,14 @@ class Tweet < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
+  accepts_nested_attributes_for :tags
+  
+  def tags_attributes=(tags_attributes)
+    tags_attributes.each do |tag_attribute| 
+      tag = Tag.find_or_create_by!(tag_attribute)
+      self.tags << tag
+    end	  
+  end
 
   after_create_commit lambda {
     broadcast_prepend_later_to 'tweets', target:'tweets'

@@ -6,5 +6,9 @@
       = form.hidden_field :tweet_type , value: 'tweet'
       div 
         = form.rich_text_area :content
+      
+      = form.fields_for(:tags, include_id: false) do|tags_form|
+        div 
+          = tags_form.text_field :body
       div 
         = form.submit
