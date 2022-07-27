@@ -15,12 +15,12 @@ class Tweet < ApplicationRecord
 
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
-
   accepts_nested_attributes_for :tags
   
+  has_many :mentions
+  accepts_nested_attributes_for :mentions
+  
   has_rich_text :content
-
-
 
   after_create_commit lambda {
     broadcast_prepend_later_to 'tweets', target:'tweets'

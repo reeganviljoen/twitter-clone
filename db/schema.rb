@@ -69,12 +69,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_074121) do
   end
 
   create_table "mentions", force: :cascade do |t|
-    t.bigint "sender_id"
-    t.bigint "notified_id"
+    t.bigint "tweet_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["notified_id"], name: "index_mentions_on_notified_id"
-    t.index ["sender_id"], name: "index_mentions_on_sender_id"
+    t.index ["tweet_id"], name: "index_mentions_on_tweet_id"
+    t.index ["user_id"], name: "index_mentions_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|

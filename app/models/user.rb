@@ -15,8 +15,7 @@ class User < ApplicationRecord
   has_many :tags, through: :taggings, dependent: :destroy
   accepts_nested_attributes_for :tags
   
-  has_many :mentions , class_name: 'Mention', inverse_of: :mentioner
-  has_many :notifications , class_name: 'Mention', inverse_of: :mentioned
+  has_many :mentions
 
   def tags_attributes=(tags_attributes)
     tags_attributes.each do |tag_attribute| 
