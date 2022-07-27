@@ -8,7 +8,11 @@ class TweetsController < ApplicationController
 
   def new 
     @tweet = current_user.tweets.new
-    5.times { @tweet.tags.build }
+    
+    5.times do 
+      @tweet.tags.build 
+      @tweet.mentions.build
+    end
   end
 
   def create
