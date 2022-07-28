@@ -11,15 +11,18 @@ html
     main
       - if !current_user.blank?
         div class='navigation'
-          = link_to root_path, {turbo_frame: :content, turbo_action: :advance} do 
+          = link_to root_path, data:{turbo_frame: 'page-content', turbo_action: :advance} do 
             = image_tag 'home.svg', class:'icon'
             span Home
-          = link_to user_path(current_user.id), {turbo_frame: :content, turbo_action: :advance} do 
+          = link_to user_path(current_user), data:{turbo_frame: 'page-content', turbo_action: :advance} do 
             = image_tag 'profile.svg', class:'icon'
             span Profile
-          = link_to explore_tweets_path(current_user.id), {turbo_frame: :content, turbo_action: :advance} do 
+          = link_to explore_tweets_path, data:{turbo_frame: 'page-content', turbo_action: :advance} do 
             = image_tag 'hashtag.svg', class:'icon'
             span explore
+          = link_to notifications_tweets_path, data:{turbo_frame: 'page-content', turbo_action: :advance} do 
+            = image_tag 'notifications.svg', class:'icon'
+            span notifications
           = link_to destroy_user_session_path, data:{target: :_top, turbo_method: :delete} do 
             = image_tag 'signout.svg', class:'icon'
             span sign-out
