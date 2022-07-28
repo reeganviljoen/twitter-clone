@@ -11,14 +11,25 @@ class TweetsController < ApplicationController
     
     5.times do 
       @tweet.tags.build 
-      @tweet.mentions.build
+      @tweet.mentions.build 
     end
   end
 
   def create
     respond_to do |format|
+      
       @tweet = current_user.tweets.new(tweet_params)
       if @tweet.save
+        params[:tweet][:mentions_attributes].each do |key, mention|
+          if mention[:user].present?  
+            begin
+              user = Profile.find_by(first_name: mention[:user]).user
+              @tweet.mentions.create!(user_id: user.id)
+            rescue 
+              format.html{flash.notice = 'mention not valid'}
+            end
+          end
+        end
         format.html{redirect_to root_path}
       else
         format.html{render :new, status: :unprocessable_entity}
