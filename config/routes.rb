@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :tweets , except: %i[edit update show] do
     resources :likes, only: %i[new create destroy]
-    resources :comments, except: %i[edit update show]
+    resources :comments, except: %i[edit update show destroy]
     resources :retweets, only: %i[new create]
   end
  
