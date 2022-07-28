@@ -18,8 +18,6 @@ class RetweetsController < ApplicationController
   def retweet_params
     permitted_params = params.permit(:content, :tweet_type)
     
-    permitted_params.merge!(
-      user_id: current_user.id
-    )
+    permitted_params.merge!(user_id: current_user.id)
   end
 end
