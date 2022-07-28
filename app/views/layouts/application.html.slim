@@ -15,10 +15,13 @@ html
             = image_tag 'home.svg', class:'icon'
             span Home
           = link_to user_path(current_user.id), {turbo_frame: :content, turbo_action: :advance} do 
-            =image_tag 'profile.svg', class:'icon'
+            = image_tag 'profile.svg', class:'icon'
             span Profile
           = link_to explore_tweets_path(current_user.id), {turbo_frame: :content, turbo_action: :advance} do 
-            =image_tag 'hashtag.svg', class:'icon'
+            = image_tag 'hashtag.svg', class:'icon'
             span explore
+          = link_to destroy_user_session_path, data:{target: :_top, turbo_method: :delete} do 
+            = image_tag 'signout.svg', class:'icon'
+            span sign-out
         = turbo_frame_tag 'modal'
       = yield
