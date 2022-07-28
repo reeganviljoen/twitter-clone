@@ -17,5 +17,8 @@ html
           = link_to user_path(current_user.id), {turbo_frame: :content, turbo_action: :advance} do 
             =image_tag 'profile.svg', class:'icon'
             span Profile
+          = link_to explore_tweets_path(current_user.id), {turbo_frame: :content, turbo_action: :advance} do 
+            =image_tag 'hashtag.svg', class:'icon'
+            span explore
         = turbo_frame_tag 'modal'
       = yield
