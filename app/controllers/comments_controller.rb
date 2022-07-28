@@ -12,23 +12,10 @@ class CommentsController < ApplicationController
   def create 
     tweet = Tweet.find(params[:tweet_id])
     @comment = tweet.comments.new(comment_params)
-    respond_to do |format|
-      if @comment.save
-        format.html {redirect_to tweet_path(tweet)}
-      else 
-        format.html{render :new, status: :unprocessable_entity}
-      end
-      format.turbo_stream
-    end
-  end
-
-  def destroy
-    @comment = Tweet.find(params[:id])
-    begin
-      @comment.destroy
-      redirect_to tweet_path(@comment.tweet), status: :see_other
-    rescue
-      render :index, status: :unprocessable_entity
+    if @comment.save
+      redirect_to tweet_path(tweet)
+    else 
+      render :new, status: :unprocessable_entity
     end
   end
 

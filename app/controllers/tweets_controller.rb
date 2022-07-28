@@ -19,14 +19,14 @@ class TweetsController < ApplicationController
       params[:tweet][:mentions_attributes].each do |key, mention|
         if mention[:user].present?  
           begin
-            user = Profile.find_by(first_name: mention[:user]).user
-            @tweet.mentions.create!(user_id: user.id)
-          rescue 
-            format.html{flash.notice = 'mention not valid'}
+            user = Profile.find_by!(first_name: mention[:user]).user
+            @tweet.mentions.create(user_id: user.id)
+          rescue ActiveRecord::RecordNotFound
+            flash.notice = 'mention not valid'
           end
         end
       end
-      redirect_to root_path
+      redirect_to new_tweet_path
     else
       render :new, status: :unprocessable_entity
     end
