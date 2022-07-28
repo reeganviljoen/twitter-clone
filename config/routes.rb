@@ -17,5 +17,9 @@ Rails.application.routes.draw do
     resources :tweets, only: :index
   end
 
+  namespace :notifications do
+    resources :tweets, only: :index
+  end
+
   root "tweets#index"
 end
