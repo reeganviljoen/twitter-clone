@@ -1,6 +1,4 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!
-
   def index 
     followees = current_user.followees.pluck(:followee_id) << current_user.id
     @tweets = Tweet.followed_tweets(followees).descending_tweets
@@ -15,26 +13,22 @@ class TweetsController < ApplicationController
     end
   end
 
-  def create
-    respond_to do |format|
-      
-      @tweet = current_user.tweets.new(tweet_params)
-      if @tweet.save
-        params[:tweet][:mentions_attributes].each do |key, mention|
-          if mention[:user].present?  
-            begin
-              user = Profile.find_by(first_name: mention[:user]).user
-              @tweet.mentions.create!(user_id: user.id)
-            rescue 
-              format.html{flash.notice = 'mention not valid'}
-            end
+  def create      
+    @tweet = current_user.tweets.new(tweet_params)
+    if @tweet.save
+      params[:tweet][:mentions_attributes].each do |key, mention|
+        if mention[:user].present?  
+          begin
+            user = Profile.find_by(first_name: mention[:user]).user
+            @tweet.mentions.create!(user_id: user.id)
+          rescue 
+            format.html{flash.notice = 'mention not valid'}
           end
         end
-        format.html{redirect_to root_path}
-      else
-        format.html{render :new, status: :unprocessable_entity}
       end
-      format.turbo_stream
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
     end
   end
   

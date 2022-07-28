@@ -22,9 +22,9 @@ class Tweet < ApplicationRecord
   
   has_rich_text :content
 
-  after_create_commit lambda {
-    broadcast_prepend_later_to 'tweets', target:'tweets'
-  }
+  # after_create_commit lambda {
+  #   broadcast_prepend_later_to 'tweets', target:'tweets'
+  # }
   
   after_destroy_commit lambda {
     broadcast_remove_to 'tweets', target: "#{dom_id self}"
