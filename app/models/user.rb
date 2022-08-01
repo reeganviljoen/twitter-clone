@@ -3,7 +3,8 @@ class User < ApplicationRecord
           :registerable, 
           :recoverable, 
           :rememberable, 
-          :validatable
+          :validatable,
+          :confirmable
 
   has_many :tweets , dependent: :destroy
   has_many :likes, dependent: :destroy
