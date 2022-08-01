@@ -77,17 +77,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_074121) do
     t.index ["user_id"], name: "index_mentions_on_user_id"
   end
 
-  create_table "profiles", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone"
-    t.string "description"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_profiles_on_user_id"
-  end
-
   create_table "taggings", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "tag_id", null: false
@@ -121,6 +110,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_074121) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -133,7 +126,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_074121) do
   add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
-  add_foreign_key "profiles", "users"
   add_foreign_key "taggings", "tags"
   add_foreign_key "taggings", "users"
   add_foreign_key "tweets", "tweets"

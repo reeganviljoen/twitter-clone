@@ -11,14 +11,22 @@ class User < ApplicationRecord
   has_many :followers, foreign_key: 'followee_id', class_name: 'Follow'
   has_many :followees, foreign_key: 'follower_id', class_name: 'Follow'
 
-  has_one :profile, dependent: :destroy
-  accepts_nested_attributes_for :profile
+  # has_one :profile, dependent: :destroy
+  # accepts_nested_attributes_for :profile
 
   has_many :taggings
   has_many :tags, through: :taggings, dependent: :destroy
   accepts_nested_attributes_for :tags
   
   has_many :mentions
+
+  validates :first_name, presence: true
+  validates :last_name,  presence: true
+  validates :phone,      presence: true
+  validates :description, length: { maximum: 300 }
+  
+  has_one_attached :avatar
+  has_one_attached :background_image
 
   def tags_attributes=(tags_attributes)
     tags_attributes.each do |tag_attribute| 

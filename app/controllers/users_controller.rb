@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    permited_params = params.require(:user).permit(profile_attributes: %i[first_name last_name background_image avatar description phone])
+    permited_params = params.require(:user).permit( :first_name, :last_name, :background_image, :avatar, :description, :phone)
     
     tag_attributes = []
     params[:user][:tags_attributes].each do |key, tag_attribute|
