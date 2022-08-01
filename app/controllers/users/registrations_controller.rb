@@ -3,7 +3,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new
     build_resource({})
-    resource.build_profile
     respond_with resource
   end
 
@@ -24,7 +23,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :password_confirmation,
       :remember_me,
       :role,
-      profile_attributes: %i[first_name last_name phone description avatar]
+      :first_name, 
+      :last_name, 
+      :phone,
+      :description, 
+      :avatar
     ]
   end
 end
