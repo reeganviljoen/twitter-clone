@@ -47,13 +47,6 @@ class TweetsController < ApplicationController
 
   private
   def tweet_params
-    permited_params = params.require(:tweet).permit(:content, :tweet_type)
-    
-    tag_attributes = []
-    params[:tweet][:tags_attributes].each do |key, tag_attribute|
-      tag_attributes << {body: tag_attribute[:body]}
-    end
-
-    permited_params.merge!(tags_attributes: tag_attributes)
+    params.require(:tweet).permit(:content, :tweet_type, tags_attributes: :body)
   end
 end
