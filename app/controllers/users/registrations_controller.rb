@@ -29,6 +29,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :phone,
       :description, 
       :avatar,
+      :handle,
       tags_attributes:  :body
     ]
   end

@@ -18,8 +18,10 @@
           = form.text_field :first_name, placeholder: 'First name'
         div 
           = form.text_field :last_name, placeholder: 'Last name'
-          div 
-          = form.text_area :phone, placeholder: 'phone number'
+        div 
+          = form.telephone_field :phone, placeholder: 'phone number'
+        div 
+          = form.text_field :handle
         div 
           = form.text_area :description, placeholder: 'Bio'
         h3 Tags
