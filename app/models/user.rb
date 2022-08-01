@@ -1,6 +1,9 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable
+  devise  :database_authenticatable, 
+          :registerable, 
+          :recoverable, 
+          :rememberable, 
+          :validatable
 
   has_many :tweets , dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -34,11 +37,6 @@ class User < ApplicationRecord
   end
 
   def following(followee_id)
-    begin
-      followee = followees.find_by(followee_id: followee_id)
-      if followee.nil? then raise ActiveRecord::RecordNotFound else return true end
-    rescue ActiveRecord::RecordNotFound
-      return false
-    end
+    followees.find_by(followee_id: followee_id).present?
   end
 end
