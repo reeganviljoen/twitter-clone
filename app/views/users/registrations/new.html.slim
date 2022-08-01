@@ -27,6 +27,11 @@ div class='sign-up'
       = form.password_field :password_confirmation, autocomplete: "new-password", placeholder:'password confirmation'
     div
       = form.text_area :description, placeholder: 'description'
+
+    h3 Tags
+    = form.fields_for :tags, include_id: false do |tags_form|
+      div 
+        = tags_form.text_field :body
     div 
       = form.submit "Sign up"
   = render "devise/shared/links"

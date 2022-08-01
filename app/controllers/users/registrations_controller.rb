@@ -3,6 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new
     build_resource({})
+    5.times {resource.tags.build}
     respond_with resource
   end
 
@@ -27,7 +28,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :last_name, 
       :phone,
       :description, 
-      :avatar
+      :avatar,
+      tags_attributes:  :body
     ]
   end
 end
