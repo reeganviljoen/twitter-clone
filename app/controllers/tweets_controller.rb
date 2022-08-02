@@ -16,18 +16,9 @@ class TweetsController < ApplicationController
   def create      
     @tweet = current_user.tweets.new(tweet_params)
     if @tweet.save
-      params[:tweet][:mentions_attributes].each do |key, mention|
-        if mention[:user].present?  
-          begin
-            user = Profile.find_by!(first_name: mention[:user]).user
-            @tweet.mentions.create(user_id: user.id)
-          rescue ActiveRecord::RecordNotFound
-            flash.notice = 'mention not valid'
-          end
-        end
-      end
       redirect_to new_tweet_path
     else
+      binding.pry
       render :new, status: :unprocessable_entity
     end
   end
@@ -47,6 +38,6 @@ class TweetsController < ApplicationController
 
   private
   def tweet_params
-    params.require(:tweet).permit(:content, :tweet_type, tags_attributes: :body)
+    params.require(:tweet).permit(:content, :tweet_type, tags_attributes: :body, mentions_attributes: :user_name)
   end
 end
