@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :tags, through: :taggings, dependent: :destroy
   accepts_nested_attributes_for :tags, allow_destroy: true
   
-  has_many :mentions
+  has_many :mentions, foreign_key: :user_name, primary_key: :handle
 
   validates :first_name, presence: true
   validates :last_name,  presence: true

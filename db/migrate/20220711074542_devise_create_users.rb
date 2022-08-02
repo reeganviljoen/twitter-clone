@@ -14,7 +14,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       ## Rememberable
       t.datetime :remember_created_at
 
-      t.string :handle, unique: true
+      t.string :handle
       t.string :first_name
       t.string :last_name
       t.string :phone
