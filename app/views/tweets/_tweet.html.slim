@@ -11,10 +11,7 @@ div class='tweet' id = "#{dom_id tweet}"
       - tweet.tags.each do |tag| 
         p #{tag.body}
 
-    h3 Mentions
     div class='tweet__tags'
-      - tweet.mentions.each do |mention| 
-        p #{mention.user_name}
     
     - if tweet.comments.present?
       = link_to 'comments', tweet_comments_path(tweet), data: {turbo_action: :advance}

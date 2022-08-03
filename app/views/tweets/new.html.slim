@@ -10,10 +10,6 @@
       = form.fields_for :tags do|tags_form|
         div 
           = tags_form.text_field :body
-      h2 Mentions
-      = form.fields_for :mentions do|mentions_form|
-        div 
-          = mentions_form.text_field :user_name
           
       div 
         = form.submit

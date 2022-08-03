@@ -1,4 +1,6 @@
 class TweetsController < ApplicationController
+  before_action :extract_mentions, only: :create
+
   def index 
     followees = current_user.followees.pluck(:followee_id) << current_user.id
     @tweets = Tweet.followed_tweets(followees).descending_tweets
@@ -13,12 +15,11 @@ class TweetsController < ApplicationController
     end
   end
 
-  def create      
+  def create     
     @tweet = current_user.tweets.new(tweet_params)
     if @tweet.save
       redirect_to new_tweet_path
     else
-      binding.pry
       render :new, status: :unprocessable_entity
     end
   end
@@ -40,4 +41,17 @@ class TweetsController < ApplicationController
   def tweet_params
     params.require(:tweet).permit(:content, :tweet_type, tags_attributes: :body, mentions_attributes: :user_name)
   end
+
+  def extract_mentions
+    params[:tweet][:mentions_attributes] = {}
+    words = params[:tweet][:content].gsub('<div>', '').gsub('</div>', '').split(' ')
+    words.each_with_index do |word, index|
+      if word[0] == '@'
+        mention = "<a href='#'>#{word}</a>"
+
+        params[:tweet][:content].gsub!(word, mention)
+        params[:tweet][:mentions_attributes][index.to_s] = {user_name: word.sub('@', '')}
+      end
+    end
+  end 
 end
