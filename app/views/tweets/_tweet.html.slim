@@ -3,7 +3,8 @@ div class='tweet' id = "#{dom_id tweet}"
     div class='tweet__body'
       = link_to "@#{ tweet.user.handle}", user_path(tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
       = raw tweet.content
-    = link_to 'Delete', tweet_path(tweet), data: { turbo_method: :delete} 
+    - if current_user == tweet.user
+      = link_to 'Delete', tweet_path(tweet), data: { turbo_method: :delete} 
     br
     
     - if tweet.comments.present?
