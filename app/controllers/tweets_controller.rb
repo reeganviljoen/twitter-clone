@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
-  before_action :extract_mentions, only: :create
-  before_action :extract_tags, only: :create
+  before_action :extract_mentions_and_tags, only: :create
+
 
   def index 
     followees = current_user.followees.pluck(:followee_id) << current_user.id
@@ -43,8 +43,10 @@ class TweetsController < ApplicationController
     params.require(:tweet).permit(:content, :tweet_type, tags_attributes: :body, mentions_attributes: :user_name)
   end
 
-  def extract_mentions
+  def extract_mentions_and_tags
     params[:tweet][:mentions_attributes] = {}
+    params[:tweet][:tags_attributes] = {}
+
     words = params[:tweet][:content].gsub('<div>', '').gsub('</div>', '').split(' ')
     words.each_with_index do |word, index|
       if word[0] == '@'
@@ -53,13 +55,7 @@ class TweetsController < ApplicationController
         params[:tweet][:content].gsub!(word, mention)
         params[:tweet][:mentions_attributes][index.to_s] = {user_name: word.sub('@', '')}
       end
-    end
-  end 
 
-  def extract_tags
-    params[:tweet][:tags_attributes] = {}
-    words = params[:tweet][:content].gsub('<div>', '').gsub('</div>', '').split(' ')
-    words.each_with_index do |word, index|
       if word[0] == '#'
         tag = "<a href='#'>#{word}</a>"
 
