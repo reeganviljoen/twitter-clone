@@ -1,6 +1,7 @@
-class CommentsController < ApplicationController
+ class CommentsController < ApplicationController
   before_action :set_tweet, only: [:index, :new]
-  
+  before_action :extract_mentions_and_tags, only: :create
+
   def index
     @comments = @tweet.comments.descending_tweets
   end

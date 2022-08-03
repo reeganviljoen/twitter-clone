@@ -1,4 +1,6 @@
 class RetweetsController < ApplicationController
+  before_action :extract_mentions_and_tags, only: :create
+
   def new
     @tweet = Tweet.find(params[:tweet_id])
     @retweet = @tweet.retweets.new()
@@ -19,5 +21,5 @@ class RetweetsController < ApplicationController
     permitted_params = params.permit(:content, :tweet_type)
     
     permitted_params.merge!(user_id: current_user.id)
-  end
+  end 
 end
