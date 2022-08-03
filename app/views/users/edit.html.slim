@@ -6,20 +6,24 @@
         
         button type="button" data-action="click->modal#close"
           = image_tag 'close.svg', class:'icon'
-
-        = form.fields_for :profile do |profile_form|
-          div
-            = profile_form.file_field :background_image, accept: 'image/png, image/gif, image/jpeg'
-          div
-            = profile_form.file_field :avatar, accept: 'image/png, image/gif, image/jpeg'
-          div
-            = profile_form.text_field :first_name, placeholder: 'First name'
-          div 
-            = profile_form.text_field :last_name, placeholder: 'Last name'
-            div 
-            = profile_form.text_area :phone, placeholder: 'phone number'
-          div 
-            = profile_form.text_area :description, placeholder: 'Bio'
+        div
+          = form.label :background_image
+          br
+          = form.file_field :background_image, accept: 'image/png, image/gif, image/jpeg'
+        div
+          = form.label :avatar
+          br
+          = form.file_field :avatar, accept: 'image/png, image/gif, image/jpeg'
+        div
+          = form.text_field :first_name, placeholder: 'First name'
+        div 
+          = form.text_field :last_name, placeholder: 'Last name'
+        div 
+          = form.telephone_field :phone, placeholder: 'phone number'
+        div 
+          = form.text_field :handle
+        div 
+          = form.text_area :description, placeholder: 'Bio'
         h3 Tags
         = form.fields_for :tags do |tags_form|
           div 

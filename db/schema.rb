@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_27_074121) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_02_064821) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,22 +70,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_074121) do
 
   create_table "mentions", force: :cascade do |t|
     t.bigint "tweet_id"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_name"
     t.index ["tweet_id"], name: "index_mentions_on_tweet_id"
-    t.index ["user_id"], name: "index_mentions_on_user_id"
-  end
-
-  create_table "profiles", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone"
-    t.string "description"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -121,9 +109,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_074121) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "handle"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "description"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["handle"], name: "index_users_on_handle", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -133,7 +131,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_074121) do
   add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
-  add_foreign_key "profiles", "users"
   add_foreign_key "taggings", "tags"
   add_foreign_key "taggings", "users"
   add_foreign_key "tweets", "tweets"

@@ -3,18 +3,19 @@ div class='sign-up'
   h2 Sign up
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |form|
     = render "devise/shared/error_messages", resource: resource
-    = form.fields_for :profile do |profile_form|
-      div 
-        = profile_form.text_field :first_name, placeholder: 'first name'
 
-      div 
-        = profile_form.text_field :last_name, placeholder: 'last name'
-      
-      div 
-        = profile_form.text_field :phone, placeholder: 'phone number'
-      div 
-        = profile_form.label :avatar
-        = profile_form.file_field :avatar, accept: 'image/png,image/gif,image/jpeg'
+    div 
+      = form.text_field :first_name, placeholder: 'first name'
+
+    div 
+      = form.text_field :last_name, placeholder: 'last name'
+    div 
+      = form.text_field :handle, placeholder: 'handle'    
+    div 
+      = form.text_field :phone, placeholder: 'phone number'
+    div 
+      = form.label :avatar
+      = form.file_field :avatar, accept: 'image/png,image/gif,image/jpeg'
 
     div 
       = form.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'email'
@@ -24,9 +25,13 @@ div class='sign-up'
         em #{@minimum_password_length}characters minimum
     div 
       = form.password_field :password_confirmation, autocomplete: "new-password", placeholder:'password confirmation'
-    
-    = form.fields_for :profile do |profile_form|
-      = profile_form.text_area :description
+    div
+      = form.text_area :description, placeholder: 'description'
+
+    h3 Tags
+    = form.fields_for :tags, include_id: false do |tags_form|
+      div 
+        = tags_form.text_field :body
     div 
       = form.submit "Sign up"
   = render "devise/shared/links"

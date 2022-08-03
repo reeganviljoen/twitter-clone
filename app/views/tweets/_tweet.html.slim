@@ -1,20 +1,10 @@
 div class='tweet' id = "#{dom_id tweet}"
   -if tweet.tweet_type != 'retweet'  
     div class='tweet__body'
-      = link_to tweet.user.email, user_path(tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
+      = link_to "@#{ tweet.user.handle}", user_path(tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
       = raw tweet.content
     = link_to 'Delete', tweet_path(tweet), data: { turbo_method: :delete} 
     br
-
-    h3 Tags
-    div class='tweet__tags'
-      - tweet.tags.each do |tag| 
-        p #{tag.body}
-
-    h3 Mentions
-    div class='tweet__tags'
-      - tweet.mentions.each do |mention| 
-        p #{mention.user.profile.first_name}
     
     - if tweet.comments.present?
       = link_to 'comments', tweet_comments_path(tweet), data: {turbo_action: :advance}

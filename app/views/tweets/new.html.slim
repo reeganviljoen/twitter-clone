@@ -6,14 +6,10 @@
       = form.hidden_field :tweet_type , value: 'tweet'
       div 
         = form.rich_text_area :content
-      h2 Tags
-      = form.fields_for(:tags, include_id: false) do|tags_form|
-        div 
-          = tags_form.text_field :body
-      h2 Mentions
-      = form.fields_for(:mentions, include_id: false) do|mentions_form|
-        div 
-          = mentions_form.text_field :user
+      / h2 Tags
+      / = form.fields_for :tags do|tags_form|
+      /   div 
+      /     = tags_form.text_field :body
           
       div 
         = form.submit

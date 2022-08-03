@@ -1,4 +1,7 @@
 class TweetsController < ApplicationController
+  before_action :extract_mentions_and_tags, only: :create
+
+
   def index 
     followees = current_user.followees.pluck(:followee_id) << current_user.id
     @tweets = Tweet.followed_tweets(followees).descending_tweets
@@ -13,19 +16,9 @@ class TweetsController < ApplicationController
     end
   end
 
-  def create      
+  def create     
     @tweet = current_user.tweets.new(tweet_params)
     if @tweet.save
-      params[:tweet][:mentions_attributes].each do |key, mention|
-        if mention[:user].present?  
-          begin
-            user = Profile.find_by!(first_name: mention[:user]).user
-            @tweet.mentions.create(user_id: user.id)
-          rescue ActiveRecord::RecordNotFound
-            flash.notice = 'mention not valid'
-          end
-        end
-      end
       redirect_to new_tweet_path
     else
       render :new, status: :unprocessable_entity
@@ -47,13 +40,28 @@ class TweetsController < ApplicationController
 
   private
   def tweet_params
-    permited_params = params.require(:tweet).permit(:content, :tweet_type)
-    
-    tag_attributes = []
-    params[:tweet][:tags_attributes].each do |key, tag_attribute|
-      tag_attributes << {body: tag_attribute[:body]}
-    end
-
-    permited_params.merge!(tags_attributes: tag_attributes)
+    params.require(:tweet).permit(:content, :tweet_type, tags_attributes: :body, mentions_attributes: :user_name)
   end
+
+  def extract_mentions_and_tags
+    params[:tweet][:mentions_attributes] = {}
+    params[:tweet][:tags_attributes] = {}
+
+    words = params[:tweet][:content].gsub('<div>', '').gsub('</div>', '').split(' ')
+    words.each_with_index do |word, index|
+      if word[0] == '@'
+        mention = "<a href='#'>#{word}</a>"
+
+        params[:tweet][:content].gsub!(word, mention)
+        params[:tweet][:mentions_attributes][index.to_s] = {user_name: word.sub('@', '')}
+      end
+
+      if word[0] == '#'
+        tag = "<a href='#'>#{word}</a>"
+
+        params[:tweet][:content].gsub!(word, tag)
+        params[:tweet][:tags_attributes][index.to_s] = {body: word.sub('#', '')}
+      end
+    end
+  end 
 end

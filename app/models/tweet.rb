@@ -34,8 +34,10 @@ class Tweet < ApplicationRecord
 
   def tags_attributes=(tags_attributes)
     tags_attributes.each do |tag_attribute| 
-      tag = Tag.find_or_create_by!(tag_attribute)
-      self.tags << tag
+      if tag_attribute[1][:body].present? 
+        tag = Tag.find_or_create_by!(tag_attribute[1])
+        self.tags << tag
+      end
     end	  
   end
   

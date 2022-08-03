@@ -1,16 +1,16 @@
 =turbo_frame_tag 'page-content'
   div class='user-header'
-    - if @user.profile.background_image.attached?
-      = image_tag @user.profile.background_image, class:'background-header'
+    - if @user.background_image.attached?
+      = image_tag @user.background_image, class:'background-header'
     - else 
       = image_tag 'background_default.svg', class:'background-header'
-    - if @user.profile.avatar.attached?
-       = image_tag @user.profile.avatar, class:'avatar'
+    - if @user.avatar.attached?
+       = image_tag @user.avatar, class:'avatar'
     - else 
       = image_tag 'profile.svg', class:'avatar'
 
-    h1 #{@user.profile.first_name} #{@user.profile.last_name}
-    p #{@user.profile.description}
+    h1 #{@user.first_name} #{@user.last_name}
+    p #{@user.description}
     - if current_user == @user
       = link_to 'edit profile', edit_user_path(@user), data: {turbo_frame: :modal}
       h3 class='user__tags' Tags

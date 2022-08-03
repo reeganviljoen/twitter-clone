@@ -84,7 +84,7 @@ main {
   display: flex;
  }
 
- .tweet__icons, .tweet__tags, .user__tags {
+ .tweet__icons, .user__tags {
   display: flex;
   justify-content: space-around;
  }
