@@ -3,8 +3,7 @@ class TweetsController < ApplicationController
 
 
   def index 
-    followees = current_user.followees.pluck(:followee_id) << current_user.id
-    @tweets = Tweet.followed_tweets(followees).created_at_desc
+    @tweets = Tweet.followed_tweets(current_user).created_at_desc
   end
   
   def new 

@@ -28,7 +28,7 @@ class Tweet < ApplicationRecord
 
   scope :created_at_desc, -> { order(created_at: :desc) }
 
-  scope :followed_tweets, -> (followees) {where(user_id: followees)}
+  scope :followed_tweets, ->(current_user) {left_joins(user: :followers).where(followers: {follower_id: current_user.id}).or(Tweet.where(user_id: current_user.id))}
 
   scope :tagged_tweets, -> (tags) { joins(taggings: :tag).where(tag: {id: tags})}
 
@@ -38,7 +38,7 @@ class Tweet < ApplicationRecord
         tag = Tag.find_or_create_by!(tag_attribute[1])
         self.tags << tag
       end
-    end	  
+    end	   
   end
   
   def liked?(user)
