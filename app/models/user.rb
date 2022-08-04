@@ -27,12 +27,7 @@ class User < ApplicationRecord
   has_one_attached :background_image
 
   def tags_attributes=(tags_attributes)
-    tags_attributes.each do |tag_attribute| 
-      if tag_attribute[1][:body].present? 
-        tag = Tag.find_or_create_by!(tag_attribute[1])
-        self.tags << tag
-      end
-    end	  
+    self.tags = Tag.where_or_create(tags_attributes)
   end
 
   def following(followee_id)

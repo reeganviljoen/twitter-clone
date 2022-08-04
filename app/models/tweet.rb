@@ -33,12 +33,7 @@ class Tweet < ApplicationRecord
   scope :tagged_tweets, -> (tags) { joins(taggings: :tag).where(tag: {id: tags})}
 
   def tags_attributes=(tags_attributes)
-    tags_attributes.each do |tag_attribute| 
-      if tag_attribute[1][:body].blank? 
-        tag = Tag.find_or_create_by!(tag_attribute[1])
-        self.tags << tag
-      end
-    end	   
+	  self.tags = Tag.where_or_create(tags_attributes) 
   end
   
   def liked?(user)
