@@ -4,18 +4,13 @@ class TweetsController < ApplicationController
 
   def index 
     followees = current_user.followees.pluck(:followee_id) << current_user.id
-    @tweets = Tweet.followed_tweets(followees).descending_tweets
+    @tweets = Tweet.followed_tweets(followees).created_at_desc
   end
-
+  
   def new 
     @tweet = current_user.tweets.new
-    
-    5.times do 
-      @tweet.tags.build 
-      @tweet.mentions.build 
-    end
   end
-
+  
   def create     
     @tweet = current_user.tweets.new(tweet_params)
     if @tweet.save
@@ -32,7 +27,7 @@ class TweetsController < ApplicationController
         @tweet.destroy
         format.html {redirect_to root_path}
       rescue
-        format.html{render :index, status: :unprocessable_entity}
+        format.html{ render :index, status: :unprocessable_entity }
       end
       format.turbo_stream
     end
