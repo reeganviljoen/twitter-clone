@@ -3,6 +3,6 @@ class Explore::TweetsController < ApplicationController
 
   def index 
     tags = current_user.tags.pluck(:id)
-    @tweets = Tweet.tagged_tweets(tags).descending_tweets
+    @tweets = Tweet.tagged_tweets(tags).created_at_desc
   end
 end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @tweets = @user.tweets.descending_tweets
+    @tweets = @user.tweets.created_at_desc
   end
 
   def edit

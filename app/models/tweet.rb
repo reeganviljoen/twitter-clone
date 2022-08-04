@@ -26,7 +26,7 @@ class Tweet < ApplicationRecord
     broadcast_remove_to 'tweets', target: "#{dom_id self}"
   } 
 
-  scope :descending_tweets, -> { order(created_at: :desc) }
+  scope :created_at_desc, -> { order(created_at: :desc) }
 
   scope :followed_tweets, -> (followees) {where(user_id: followees)}
 
@@ -34,7 +34,7 @@ class Tweet < ApplicationRecord
 
   def tags_attributes=(tags_attributes)
     tags_attributes.each do |tag_attribute| 
-      if tag_attribute[1][:body].present? 
+      if tag_attribute[1][:body].blank? 
         tag = Tag.find_or_create_by!(tag_attribute[1])
         self.tags << tag
       end
