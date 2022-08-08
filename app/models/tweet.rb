@@ -30,7 +30,7 @@ class Tweet < ApplicationRecord
 
   scope :followed_tweets, ->(current_user) {left_joins(user: :followers).where(followers: {follower_id: current_user.id}).or(Tweet.where(user_id: current_user.id))}
 
-  scope :tagged_tweets, -> (tags) { joins(taggings: :tag).where(tag: {id: tags})}
+  scope :tagged_tweets, -> (current_user) { joins(taggings: :tag).where(tag: {body: current_user.tags.pluck(:body)})}
 
   def tags_attributes=(tags_attributes)
 	  self.tags = Tag.where_or_create(tags_attributes) 
