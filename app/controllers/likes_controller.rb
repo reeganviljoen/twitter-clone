@@ -15,11 +15,11 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = current_user.likes.find(params[:id])
     begin
+      @like = current_user.likes.find(params[:id])
       @like.destroy
       redirect_to new_tweet_like_path(@like.tweet, type: params[:type]), status: :see_other
-    rescue 
+    rescue  ActiveRecord::RecordNotDestroyed, ActiveRecord::RecordNotFound
       render :new, status: :unprocessable_entity
     end
   end
