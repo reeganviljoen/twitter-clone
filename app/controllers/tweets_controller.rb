@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :extract_mentions_and_tags, only: :create
+  before_action :extract_tweet_mentions_and_tags, only: :create
 
 
   def index 
@@ -20,13 +20,13 @@ class TweetsController < ApplicationController
   end
   
   def destroy
-    @tweet = Tweet.find(params[:id])
     respond_to do |format|
       begin
+        @tweet = Tweet.find(params[:id])
         @tweet.destroy
         format.html {redirect_to root_path}
-      rescue
-        format.html{ render :index, status: :unprocessable_entity }
+      rescue ActiveRecord::RecordNotDestroyed, ActiveRecord::RecordNotFound
+        format.html{ redirect_to root_path, status: :unprocessable_entity }
       end
       format.turbo_stream
     end
@@ -37,7 +37,7 @@ class TweetsController < ApplicationController
     params.require(:tweet).permit(:content, :tweet_type, tags_attributes: :body, mentions_attributes: :user_name)
   end
 
-  def extract_mentions_and_tags
+  def extract_tweet_mentions_and_tags
     params[:tweet][:mentions_attributes] = {}
     params[:tweet][:tags_attributes] = {}
 
