@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.describe 'Tweets', type: :request do
   let(:user_attributes)  { attributes_for(:user) }
   let(:user) { User.create(user_attributes)}
@@ -41,8 +40,7 @@ RSpec.describe 'Tweets', type: :request do
   describe 'DELETE /tweet/:id' do
     context 'when the tweet exists' do
       let(:tweet) do
-         tweet_attributes[:user_id] = user.id
-         Tweet.create(tweet_attributes)
+         user.tweets.create(tweet_attributes)
       end
 
       it 'redirects to root path' do
