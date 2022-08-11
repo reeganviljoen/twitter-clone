@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Tweets', type: :request do
+RSpec.describe 'Likes', type: :request do
   let(:user_attributes)  { attributes_for(:user) }
   let(:user) { User.create(user_attributes)}
 
