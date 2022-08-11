@@ -1,6 +1,8 @@
 class Tweet < ApplicationRecord
   include ActionView::RecordIdentifier
   
+
+  
   belongs_to :user
   has_many :likes, dependent: :destroy
 
@@ -21,7 +23,7 @@ class Tweet < ApplicationRecord
   accepts_nested_attributes_for :mentions
   
   has_rich_text :content
-  
+  validates_presence_of :content
   after_destroy_commit lambda {
     broadcast_remove_to 'tweets', target: "#{dom_id self}"
   } 
