@@ -84,3 +84,5 @@ end
 gem "devise", "~> 4.8"
 
 gem "slim-rails", "~> 3.5"
+
+gem 'aws-sdk-s3'
