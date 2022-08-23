@@ -83,3 +83,5 @@ test:
 production:
   <<: *default
   database: twitter_clone_production
+  username: tweetsio
+  password: <%= ENV["TWEETSIO_DATABASE_PASSWORD"]
