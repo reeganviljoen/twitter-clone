@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
 
 
   def index 
-    @tweets = Tweet.where(user_id: current_user.id).created_at_desc
+    @tweets = Tweet.followed_tweets(current_user).created_at_desc
   end
   
   def new 
