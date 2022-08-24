@@ -32,7 +32,18 @@ main {
    padding-right: 1rem;
  }
  
+ .alert {
+  background-color: #6ea9ed;
+  height: 2rem;
+  width: 30%;
+  border-radius: 25px;
+  justify-content: center;
+  text-align: center;
+ }
 
+ .notice {
+  background-color: #f4f472;
+ }
 
  .tweet, .new-tweet, .sign-up, .sign-in, .user-header {
   flex: 1 1 auto;
@@ -126,7 +137,7 @@ main {
   border-radius: 9999px;
   background-color: #dedede;
   }
-  
+
  .background-header {
   margin: 0;
   width: 100%;

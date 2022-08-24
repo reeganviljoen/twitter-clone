@@ -1,0 +1,6 @@
+- if flash[:notice].present?
+  div class='notice'
+    = flash[:notice]
+- if flash[:alert].present?
+  div class='alert'
+    = flash[:alert]
