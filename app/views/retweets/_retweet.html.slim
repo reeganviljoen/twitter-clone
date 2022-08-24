@@ -1,13 +1,23 @@
 
 div class='tweet__body'
-  = link_to retweet.user.email, user_path(retweet.user), data: {turbo_frame: :content, turbo_action: :advance}
+  - if retweet.user.avatar.attached?
+    = image_tag retweet.user.avatar, class:'tweet_avatar'
+  - else 
+    = image_tag 'profile.svg', class:'tweet_avatar'
+  = link_to retweet.user.handle, user_path(retweet.user), data: {turbo_frame: :content, turbo_action: :advance}
   = raw retweet.content
+- if current_user == retweet.user
+  = link_to 'Delete', tweet_path(retweet), data: { turbo_method: :delete} 
+br
 
 div class='retweet__body'
-  = link_to retweet.tweet.user.email, user_path(retweet.tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
+  - if retweet.tweet.user.avatar.attached?
+    = image_tag retweet.tweet.user.avatar, class:'tweet_avatar'
+  - else 
+    = image_tag 'profile.svg', class:'tweet_avatar'
+  = link_to retweet.tweet.user.handle, user_path(retweet.tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
   = raw retweet.tweet.content
 
-p User: #{retweet.user.email}
 = link_to 'Delete', tweet_path(retweet), data: { turbo_method: :delete} 
 br
 

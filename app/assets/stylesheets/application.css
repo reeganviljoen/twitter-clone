@@ -118,6 +118,15 @@ main {
   background-color: #dedede;
 }
 
+  .tweet_avatar {
+  width: 2rem;
+  height:2rem;
+  margin-left: 0.5rem;
+  object-fit: cover;
+  border-radius: 9999px;
+  background-color: #dedede;
+  }
+  
  .background-header {
   margin: 0;
   width: 100%;

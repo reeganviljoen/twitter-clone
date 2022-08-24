@@ -1,7 +1,11 @@
 div class='tweet' id = "#{dom_id tweet}"
   -if tweet.tweet_type != 'retweet'  
     div class='tweet__body'
-      = link_to "@#{ tweet.user.handle}", user_path(tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
+      - if tweet.user.avatar.attached?
+        = image_tag tweet.user.avatar, class:'tweet_avatar'
+      - else 
+        = image_tag 'profile.svg', class:'tweet_avatar'
+      = link_to tweet.user.handle, user_path(tweet.user), data: {turbo_frame: :content, turbo_action: :advance}
       = raw tweet.content
     - if current_user == tweet.user
       = link_to 'Delete', tweet_path(tweet), data: { turbo_method: :delete} 
