@@ -8,6 +8,7 @@ RSpec.describe 'Users', type: :request do
 
   describe 'GET /users/:id' do
     before { get user_path(user) }
+    
     it 'returns a succesfull response' do
       expect(response).to be_successful
     end
@@ -22,10 +23,14 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'GET /users/:id/edit' do
-    it 'returns a response' do
-      get edit_user_path(user)
+    before { get edit_user_path(user) } 
 
-      expect(response.body).not_to be_empty
+    it 'returns a response' do
+      expect(response).to be_successful
+    end
+
+    it 'assigns @user' do
+      expect(assigns(:user)).to eq(user)
     end
   end
 
