@@ -3,7 +3,7 @@
   before_action :extract_mentions_and_tags, only: :create
 
   def index
-    @comments = @tweet.comments.descending_tweets
+    @comments = @tweet.comments.created_at_desc
   end
    
   def new
