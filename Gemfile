@@ -79,6 +79,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
   gem 'database_cleaner'
+  gem 'rails-controller-testing'
 end
 
 gem "devise", "~> 4.8"
