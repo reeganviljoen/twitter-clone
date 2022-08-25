@@ -154,9 +154,13 @@ main {
       display: flex;
       flex-flow: column;
       width: 100%;
+      margin-bottom: 15%;
     }
+    
     .navigation {
     background-color: #ffff;
+    padding-left: 0;
+    padding-right: 0;
     overflow: auto;
     position: fixed;
     right: 0;
