@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   let(:user_attributes)  { attributes_for(:user) }
   let(:user) { User.create(user_attributes)}
-  # let(:tweets) { build_list(:tweet, 5, user_id: user.id)}
+  
   before { sign_in user }
 
   describe 'GET /users/:id' do
@@ -39,6 +39,6 @@ RSpec.describe 'Users', type: :request do
       put user_path(user) , params: {user: user_attributes}
       expect(response).to redirect_to(user_path(user))
     end
-  end
+  end 
 end
 
