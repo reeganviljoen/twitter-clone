@@ -9,9 +9,18 @@ RSpec.describe 'Likes', type: :request do
   before { sign_in user }
 
   describe 'GET tweets/:tweet_id/like/new' do
-    it 'returns a response' do
-      get new_tweet_like_path(tweet), params:{type: 'comment'}
-      expect(response.body).to_not be_empty
+    before { get new_tweet_like_path(tweet), params:{type: 'comment'} }
+
+    it 'is succesfull' do
+      expect(response).to be_successful
+    end
+
+    it 'asigns @tweet' do
+      expect(assigns(:tweet)).to be_a(Tweet)
+    end
+
+    it 'asigns @like' do
+      expect(assigns(:like)).to be_a(Like)
     end
   end
 end
