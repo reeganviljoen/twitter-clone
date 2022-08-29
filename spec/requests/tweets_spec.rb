@@ -20,9 +20,14 @@ RSpec.describe 'Tweets', type: :request do
   end
 
   describe 'GET /tweets/new' do
+    before { get new_tweet_path }
+
     it 'returns a response' do
-      get '/tweets/new'
       expect(response.body).not_to be_empty
+    end
+
+    it 'assigns @tweet' do
+      expect(assigns(:tweet)).to be_a(Tweet)
     end
   end
 
