@@ -51,7 +51,7 @@ RSpec.describe 'Tweets', type: :request do
         expect(response).not_to be_successful
       end
 
-      it 'asigns @tweet' do
+      it 'assigns @tweet' do
         expect(assigns(:tweet)).to be_a(Tweet)
       end
     end
@@ -59,14 +59,18 @@ RSpec.describe 'Tweets', type: :request do
 
   describe 'DELETE /tweet/:id' do
     context 'when the tweet exists' do
-      let(:tweet) do
-         user.tweets.create(tweet_attributes)
+      let!(:tweet) do
+         create(:tweet, user_id: user.id)
       end
 
-      it 'redirects to root path' do
-        delete "/tweets/#{tweet.id}"
+      before { delete tweet_path(tweet) }
 
+      it 'redirects to root path' do
         expect(response).to have_http_status(302)
+      end
+
+      it 'assigns @tweet' do
+        expect(assigns(:tweet)).to eq(tweet)
       end
     end
 
