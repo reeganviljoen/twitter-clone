@@ -33,16 +33,26 @@ RSpec.describe 'Tweets', type: :request do
 
   describe 'POST /tweets' do
     context 'when it is valid tweet' do
+      before { post tweets_path, params: {tweet: tweet_attributes} }
+      
       it 'redirects back to new tweets path' do
-        post '/tweets', params: {tweet: tweet_attributes}
         expect(response).to redirect_to(new_tweet_path)
+      end
+
+      it 'asigns @tweet' do
+        expect(assigns(:tweet)).to be_a(Tweet)
       end
     end
 
     context 'when it is an invalid tweet' do
-      it 'renders an unprocessable entity staus code' do
-        post '/tweets', params: {tweet: { content: ''}}
-        expect(response).to have_http_status(422)
+      before { post tweets_path, params: {tweet: { content: ''} } } 
+      
+      it 'is not succesfull' do
+        expect(response).not_to be_successful
+      end
+
+      it 'asigns @tweet' do
+        expect(assigns(:tweet)).to be_a(Tweet)
       end
     end
   end
