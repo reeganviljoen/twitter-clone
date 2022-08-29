@@ -8,9 +8,14 @@ RSpec.describe 'Tweets', type: :request do
   before { sign_in user }
 
   describe 'GET /tweets' do
+    before { get tweets_path }
+    
     it 'returns a response' do
-      get '/tweets'
-      expect(response.body).not_to be_empty
+      expect(response).to be_successful
+    end
+
+    it 'assigns @tweets' do
+      expect(assigns(:tweets)).to be_a(ActivRecord::Relation)
     end
   end
 
