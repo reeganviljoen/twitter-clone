@@ -15,7 +15,7 @@ RSpec.describe 'Tweets', type: :request do
     end
 
     it 'assigns @tweets' do
-      expect(assigns(:tweets)).to be_a(ActivRecord::Relation)
+      expect(assigns(:tweets)).to be_a(ActiveRecord::Relation)
     end
   end
 
