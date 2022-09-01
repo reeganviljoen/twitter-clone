@@ -6,7 +6,7 @@ RSpec.describe 'Likes', type: :request do
 
   before { sign_in user }
 
-  describe 'GET tweets/:tweet_id/like/new' do
+  describe '#new' do
     before { get new_tweet_like_path(tweet), params:{type: 'comment'} }
 
     it 'is succesfull' do
@@ -22,9 +22,9 @@ RSpec.describe 'Likes', type: :request do
     end
   end
 
-  describe 'POST tweets/:tweet_id/like' do
-    before { post tweet_likes_path(tweet), params: {tweet_id: tweet.id} }
-    
+  describe '#create' do
+    before { post tweet_likes_path(tweet)}
+
     it 'redirects to tweets/:tweet_id/like/new' do
       expect(response).to redirect_to(new_tweet_like_path(tweet))
     end
@@ -34,11 +34,11 @@ RSpec.describe 'Likes', type: :request do
     end
   end
 
-  describe 'DELETE tweets/:tweet_id' do
+  describe '#destroy' do
     let(:like) { user.likes.last }
 
     before do
-      post tweet_likes_path(tweet), params: {tweet_id: tweet.id}
+      post tweet_likes_path(tweet)
       delete tweet_like_path(tweet, like)
     end
     
@@ -52,7 +52,7 @@ RSpec.describe 'Likes', type: :request do
 
     it 'redirects to tweets/:tweet_id/likes/new' do
       expect(response).to redirect_to(new_tweet_like_path(tweet))
-    end 
+    end e
 
     it 'deletes the like' do
       expect(Like.where(id: like.id).blank?).to be_truthy
